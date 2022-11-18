@@ -15,10 +15,11 @@ import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.navigations.BottomBar
 import com.androidDev.dockital.navigations.NavigationItem
 import com.androidDev.dockital.onboarding.OnBoardingScreen
+import com.androidDev.dockital.screens.Search.Navigation
 import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.stats.StatsScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
-import com.androidDev.dockital.screens.Search.SearchScreen
+//import com.androidDev.dockital.screens.Search.SearchScreen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
@@ -67,7 +68,8 @@ fun RootScreen(mainViewModel: MainViewModel) {
 
             composable(NavigationItem.Search.route) {
                 //Text("Search")
-                SearchScreen(mainViewModel = mainViewModel1)
+                //SearchScreen(mainViewModel = mainViewModel1)
+                Navigation()
             }
 
             composable(NavigationItem.Profile.route) {

@@ -1,6 +1,5 @@
 package com.androidDev.dockital.screens.Search
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -34,7 +33,7 @@ import kotlin.collections.ArrayList
 
 
 @Composable
-fun Navigation() {
+fun SearchScreen() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
@@ -44,9 +43,8 @@ fun Navigation() {
             "details/{countryName}",
             arguments = listOf(navArgument("countryName") { type = NavType.StringType })
         ) { backStackEntry ->
-            backStackEntry.arguments?.getString("countryName")?.let { countryName ->
-                Log.d("Select",countryName)
-                //DetailsScreen(countryName = countryName)
+            backStackEntry.arguments?.getString("countryName")?.let { nftName ->
+                DetailsScreen(nftName = nftName)
             }
         }
     }

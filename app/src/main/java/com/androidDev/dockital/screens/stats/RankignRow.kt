@@ -1,7 +1,9 @@
 package com.androidDev.dockital.screens.stats
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.androidDev.dockital.models.rankings
 
 import com.androidDev.dockital.R
+import com.androidDev.dockital.screens.Search.DetailsScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 
 @Composable

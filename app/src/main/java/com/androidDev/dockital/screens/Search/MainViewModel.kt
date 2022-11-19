@@ -1,4 +1,4 @@
-package com.androidDev.dockital
+package com.androidDev.dockital.screens.Search
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State

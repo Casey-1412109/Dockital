@@ -15,10 +15,12 @@ import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.navigations.BottomBar
 import com.androidDev.dockital.navigations.NavigationItem
 import com.androidDev.dockital.onboarding.OnBoardingScreen
-import com.androidDev.dockital.screens.Search.Navigation
+import com.androidDev.dockital.screens.Search.MainViewModel
+import com.androidDev.dockital.screens.Search.SearchScreen
 import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.stats.StatsScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
+
 //import com.androidDev.dockital.screens.Search.SearchScreen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -27,9 +29,6 @@ import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 fun RootScreen(mainViewModel: MainViewModel) {
     val navigationController = rememberNavController()
     var shouldShowOnBoarding by rememberSaveable { mutableStateOf(true) }
-
-    val mainViewModel1=mainViewModel
-
 
     Scaffold(
         bottomBar = {
@@ -68,8 +67,7 @@ fun RootScreen(mainViewModel: MainViewModel) {
 
             composable(NavigationItem.Search.route) {
                 //Text("Search")
-                //SearchScreen(mainViewModel = mainViewModel1)
-                Navigation()
+                SearchScreen()
             }
 
             composable(NavigationItem.Profile.route) {
@@ -84,6 +82,6 @@ fun RootScreen(mainViewModel: MainViewModel) {
 //@Composable
 //fun RootScreenPreview() {
 //    NFTMarketplaceTheme {
-//        RootScreen(mainViewModel = mainViewModel)
+//        RootScreen(mainViewModel = main)
 //    }
 //}

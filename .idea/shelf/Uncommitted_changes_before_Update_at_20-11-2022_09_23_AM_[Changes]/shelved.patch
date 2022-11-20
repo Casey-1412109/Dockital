@@ -1,0 +1,716 @@
+Index: app/src/main/java/com/androidDev/dockital/RootScreen.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.androidDev.dockital\r\n\r\nimport android.annotation.SuppressLint\r\nimport androidx.compose.material.Scaffold\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.getValue\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.saveable.rememberSaveable\r\nimport androidx.compose.runtime.setValue\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.navigation.compose.NavHost\r\nimport androidx.navigation.compose.composable\r\nimport androidx.navigation.compose.rememberNavController\r\nimport com.androidDev.dockital.navigations.BottomBar\r\nimport com.androidDev.dockital.navigations.NavigationItem\r\nimport com.androidDev.dockital.onboarding.OnBoardingScreen\r\nimport com.androidDev.dockital.screens.Search.Navigation\r\nimport com.androidDev.dockital.screens.home.HomeScreen\r\nimport com.androidDev.dockital.screens.stats.StatsScreen\r\nimport com.androidDev.dockital.ui.theme.NFTMarketplaceTheme\r\n//import com.androidDev.dockital.screens.Search.SearchScreen\r\n\r\n@SuppressLint(\"UnusedMaterialScaffoldPaddingParameter\")\r\n\r\n@Composable\r\nfun RootScreen(mainViewModel: MainViewModel) {\r\n    val navigationController = rememberNavController()\r\n    var shouldShowOnBoarding by rememberSaveable { mutableStateOf(true) }\r\n\r\n    val mainViewModel1=mainViewModel\r\n\r\n\r\n    Scaffold(\r\n        bottomBar = {\r\n            if (!shouldShowOnBoarding) {\r\n                BottomBar(navController = navigationController)\r\n            }\r\n\r\n        }\r\n    ) {\r\n        NavHost(navController = navigationController,\r\n            startDestination = if (shouldShowOnBoarding) {\r\n                NavigationItem.Login.route\r\n            } else {\r\n                NavigationItem.Stats.route\r\n            }) {\r\n            composable(NavigationItem.Login.route) {\r\n                OnBoardingScreen(\r\n                    navigateAction = {\r\n                        navigationController.navigate(NavigationItem.Home.route)\r\n                        shouldShowOnBoarding = false\r\n                    }\r\n                )\r\n            }\r\n\r\n            composable(NavigationItem.Home.route) {\r\n                HomeScreen()\r\n            }\r\n\r\n            composable(NavigationItem.Stats.route) {\r\n                StatsScreen()\r\n            }\r\n\r\n            composable(NavigationItem.Add.route) {\r\n                Text(\"Add\")\r\n            }\r\n\r\n            composable(NavigationItem.Search.route) {\r\n                //Text(\"Search\")\r\n                //SearchScreen(mainViewModel = mainViewModel1)\r\n                Navigation()\r\n            }\r\n\r\n            composable(NavigationItem.Profile.route) {\r\n                Text(\"Profile\")\r\n            }\r\n        }\r\n\r\n    }\r\n}\r\n\r\n//@Preview\r\n//@Composable\r\n//fun RootScreenPreview() {\r\n//    NFTMarketplaceTheme {\r\n//        RootScreen(mainViewModel = mainViewModel)\r\n//    }\r\n//}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/androidDev/dockital/RootScreen.kt b/app/src/main/java/com/androidDev/dockital/RootScreen.kt
+--- a/app/src/main/java/com/androidDev/dockital/RootScreen.kt	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/app/src/main/java/com/androidDev/dockital/RootScreen.kt	(date 1668801471551)
+@@ -17,6 +17,7 @@
+ import com.androidDev.dockital.onboarding.OnBoardingScreen
+ import com.androidDev.dockital.screens.Search.Navigation
+ import com.androidDev.dockital.screens.home.HomeScreen
++import com.androidDev.dockital.screens.postNFT.MintPush
+ import com.androidDev.dockital.screens.stats.StatsScreen
+ import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
+ //import com.androidDev.dockital.screens.Search.SearchScreen
+@@ -63,7 +64,7 @@
+             }
+ 
+             composable(NavigationItem.Add.route) {
+-                Text("Add")
++                MintPush()
+             }
+ 
+             composable(NavigationItem.Search.route) {
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>buildscript {\r\n    ext {\r\n        compose_version = '1.3.1'\r\n    }\r\n    repositories {\r\n        google()\r\n        mavenCentral()\r\n    }\r\n    dependencies {\r\n        classpath 'com.android.tools.build:gradle:7.3.0'\r\n        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'\r\n    }\r\n}\r\n// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id 'com.android.application' version '7.3.0' apply false\r\n    id 'com.android.library' version '7.3.0' apply false\r\n    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}\r\n\r\nallprojects {\r\n    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {\r\n        kotlinOptions {\r\n            freeCompilerArgs += [\r\n//                    \"-Xuse-experimental=kotlin.ExperimentalUnsignedTypes\",\r\n//                    \"-Xuse-experimental=kotlinx.coroutines.DelicateCoroutinesApi\",\r\n//                    \"-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi\",\r\n//                    \"-Xuse-experimental=kotlinx.coroutines.FlowPreview\",\r\n//                    \"-Xuse-experimental=kotlinx.coroutines.InternalCoroutinesApi\",\r\n//                    \"-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi\",\r\n//                    \"-Xuse-experimental=androidx.compose.animation.ExperimentalAnimationApi\",\r\n//                    \"-Xuse-experimental=androidx.compose.ExperimentalComposeApi\",\r\n//                    \"-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi\",\r\n//                    \"-Xuse-experimental=androidx.compose.runtime.ExperimentalComposeApi\",\r\n//                    \"-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi\",\r\n//                    \"-Xuse-experimental=coil.annotation.ExperimentalCoilApi\",\r\n//                    \"-Xuse-experimental=com.google.accompanist.pager.ExperimentalPagerApi\",\r\n\r\n            ]\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/build.gradle	(date 1668877352731)
+@@ -7,14 +7,14 @@
+         mavenCentral()
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:7.3.0'
++        classpath 'com.android.tools.build:gradle:7.3.1'
+         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+     }
+ }
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+-    id 'com.android.application' version '7.3.0' apply false
+-    id 'com.android.library' version '7.3.0' apply false
++    id 'com.android.application' version '7.3.1' apply false
++    id 'com.android.library' version '7.3.1' apply false
+     id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
+ }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AndroidLayouts\">\r\n    <shared>\r\n      <config />\r\n    </shared>\r\n  </component>\r\n  <component name=\"AndroidLogFilters\">\r\n    <option name=\"TOOL_WINDOW_LOG_LEVEL\" value=\"debug\" />\r\n    <option name=\"TOOL_WINDOW_CONFIGURED_FILTER\" value=\"Show only selected application\" />\r\n  </component>\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"NONE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"4062b167-06fe-4ee1-ac01-21a06d038861\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeInsightWorkspaceSettings\">\r\n    <option name=\"optimizeImportsOnTheFly\" value=\"true\" />\r\n  </component>\r\n  <component name=\"CompilerWorkspaceConfiguration\">\r\n    <option name=\"PARALLEL_COMPILATION\" value=\"false\" />\r\n  </component>\r\n  <component name=\"ExecutionTargetManager\" SELECTED_TARGET=\"device_and_snapshot_combo_box_target[/Users/ujjwalsrivastava/.android/avd/Pixel_3a_API_33_arm64-v8a.avd]\" />\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand>\r\n              <path>\r\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\r\n                <item name=\"Dockital\" type=\"f1a62948:ProjectNode\" />\r\n              </path>\r\n            </expand>\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Kotlin File\" />\r\n        <option value=\"resourceFile\" />\r\n        <option value=\"Kotlin Enum\" />\r\n        <option value=\"Kotlin Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2F5qx9eN474NsCNb6uSeJl5jppP\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.cidr.known.project.marker\" value=\"true\" />\r\n    <property name=\"cidr.known.project.marker\" value=\"true\" />\r\n    <property name=\"com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File\" value=\"DeviceSpec\" />\r\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.17\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"run.code.analysis.last.selected.profile\" value=\"pProject Default\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"vcs.Git\" />\r\n    <property name=\"show.migrate.to.gradle.popup\" value=\"false\" />\r\n  </component>\r\n  <component name=\"PsdUISettings\">\r\n    <option name=\"LAST_EDITED_BUILD_TYPE\" value=\"release\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateKotlinClassDialog.RecentsKey\">\r\n      <recent name=\"com.androidDev.dockital\" />\r\n    </key>\r\n    <key name=\"MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY\">\r\n      <recent name=\"com.androidDev.dockital\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Android App.app\">\r\n    <configuration name=\"app\" type=\"AndroidRunConfigurationType\" factoryName=\"Android App\" activateToolWindowBeforeRun=\"false\">\r\n      <module name=\"Dockital.app.main\" />\r\n      <option name=\"DEPLOY\" value=\"true\" />\r\n      <option name=\"DEPLOY_APK_FROM_BUNDLE\" value=\"false\" />\r\n      <option name=\"DEPLOY_AS_INSTANT\" value=\"false\" />\r\n      <option name=\"ARTIFACT_NAME\" value=\"\" />\r\n      <option name=\"PM_INSTALL_OPTIONS\" value=\"\" />\r\n      <option name=\"ALL_USERS\" value=\"false\" />\r\n      <option name=\"ALWAYS_INSTALL_WITH_PM\" value=\"false\" />\r\n      <option name=\"CLEAR_APP_STORAGE\" value=\"false\" />\r\n      <option name=\"DYNAMIC_FEATURES_DISABLED_LIST\" value=\"\" />\r\n      <option name=\"ACTIVITY_EXTRA_FLAGS\" value=\"\" />\r\n      <option name=\"MODE\" value=\"do_nothing\" />\r\n      <option name=\"CLEAR_LOGCAT\" value=\"false\" />\r\n      <option name=\"SHOW_LOGCAT_AUTOMATICALLY\" value=\"false\" />\r\n      <option name=\"INSPECTION_WITHOUT_ACTIVITY_RESTART\" value=\"false\" />\r\n      <option name=\"TARGET_SELECTION_MODE\" value=\"DEVICE_AND_SNAPSHOT_COMBO_BOX\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_CONFIGURATION_ID\" value=\"-1\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_PROJECT_ID\" value=\"\" />\r\n      <option name=\"DEBUGGER_TYPE\" value=\"Auto\" />\r\n      <Auto>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Auto>\r\n      <Hybrid>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Hybrid>\r\n      <Java />\r\n      <Native>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Native>\r\n      <Profilers>\r\n        <option name=\"ADVANCED_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_CONFIGURATION_NAME\" value=\"Java/Kotlin Method Sample (legacy)\" />\r\n        <option name=\"STARTUP_NATIVE_MEMORY_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"NATIVE_MEMORY_SAMPLE_RATE_BYTES\" value=\"2048\" />\r\n        <option name=\"PROFILING_MODE\" value=\"NOT_SET\" />\r\n      </Profilers>\r\n      <option name=\"DEEP_LINK\" value=\"\" />\r\n      <option name=\"ACTIVITY_CLASS\" value=\"\" />\r\n      <option name=\"SEARCH_ACTIVITY_IN_GLOBAL_SCOPE\" value=\"false\" />\r\n      <option name=\"SKIP_ACTIVITY_VALIDATION\" value=\"false\" />\r\n      <method v=\"2\">\r\n        <option name=\"Android.Gradle.BeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"ExampleInstrumentedTest\" type=\"AndroidTestRunConfigurationType\" factoryName=\"Android Instrumented Tests\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Dockital.app.androidTest\" />\r\n      <option name=\"TESTING_TYPE\" value=\"2\" />\r\n      <option name=\"METHOD_NAME\" value=\"\" />\r\n      <option name=\"CLASS_NAME\" value=\"com.androidDev.dockital.ExampleInstrumentedTest\" />\r\n      <option name=\"PACKAGE_NAME\" value=\"\" />\r\n      <option name=\"TEST_NAME_REGEX\" value=\"\" />\r\n      <option name=\"INSTRUMENTATION_RUNNER_CLASS\" value=\"\" />\r\n      <option name=\"EXTRA_OPTIONS\" value=\"\" />\r\n      <option name=\"RETENTION_ENABLED\" value=\"No\" />\r\n      <option name=\"RETENTION_MAX_SNAPSHOTS\" value=\"2\" />\r\n      <option name=\"RETENTION_COMPRESS_SNAPSHOTS\" value=\"false\" />\r\n      <option name=\"CLEAR_LOGCAT\" value=\"false\" />\r\n      <option name=\"SHOW_LOGCAT_AUTOMATICALLY\" value=\"false\" />\r\n      <option name=\"INSPECTION_WITHOUT_ACTIVITY_RESTART\" value=\"false\" />\r\n      <option name=\"TARGET_SELECTION_MODE\" value=\"DEVICE_AND_SNAPSHOT_COMBO_BOX\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_CONFIGURATION_ID\" value=\"-1\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_PROJECT_ID\" value=\"\" />\r\n      <option name=\"DEBUGGER_TYPE\" value=\"Auto\" />\r\n      <Auto>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Auto>\r\n      <Hybrid>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Hybrid>\r\n      <Java />\r\n      <Native>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Native>\r\n      <Profilers>\r\n        <option name=\"ADVANCED_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_CONFIGURATION_NAME\" value=\"Java/Kotlin Method Sample (legacy)\" />\r\n        <option name=\"STARTUP_NATIVE_MEMORY_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"NATIVE_MEMORY_SAMPLE_RATE_BYTES\" value=\"2048\" />\r\n        <option name=\"PROFILING_MODE\" value=\"NOT_SET\" />\r\n      </Profilers>\r\n      <method v=\"2\">\r\n        <option name=\"Android.Gradle.BeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SearchScreenPreview\" type=\"ComposePreviewRunConfiguration\" temporary=\"true\">\r\n      <module name=\"Dockital.app\" />\r\n      <option name=\"DEPLOY\" value=\"true\" />\r\n      <option name=\"DEPLOY_APK_FROM_BUNDLE\" value=\"false\" />\r\n      <option name=\"DEPLOY_AS_INSTANT\" value=\"false\" />\r\n      <option name=\"ARTIFACT_NAME\" value=\"\" />\r\n      <option name=\"PM_INSTALL_OPTIONS\" value=\"\" />\r\n      <option name=\"ALL_USERS\" value=\"false\" />\r\n      <option name=\"ALWAYS_INSTALL_WITH_PM\" value=\"false\" />\r\n      <option name=\"CLEAR_APP_STORAGE\" value=\"false\" />\r\n      <option name=\"DYNAMIC_FEATURES_DISABLED_LIST\" value=\"\" />\r\n      <option name=\"ACTIVITY_EXTRA_FLAGS\" value=\"--es composable com.androidDev.dockital.screens.Search.SearhScreenKt.SearchScreenPreview\" />\r\n      <option name=\"MODE\" value=\"specific_activity\" />\r\n      <option name=\"CLEAR_LOGCAT\" value=\"false\" />\r\n      <option name=\"SHOW_LOGCAT_AUTOMATICALLY\" value=\"false\" />\r\n      <option name=\"INSPECTION_WITHOUT_ACTIVITY_RESTART\" value=\"false\" />\r\n      <option name=\"TARGET_SELECTION_MODE\" value=\"SHOW_DIALOG\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_CONFIGURATION_ID\" value=\"-1\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_PROJECT_ID\" value=\"\" />\r\n      <option name=\"DEBUGGER_TYPE\" value=\"Auto\" />\r\n      <Auto>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Auto>\r\n      <Hybrid>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Hybrid>\r\n      <Java />\r\n      <Native>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Native>\r\n      <Profilers>\r\n        <option name=\"ADVANCED_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_CONFIGURATION_NAME\" value=\"Java/Kotlin Method Sample (legacy)\" />\r\n        <option name=\"STARTUP_NATIVE_MEMORY_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"NATIVE_MEMORY_SAMPLE_RATE_BYTES\" value=\"2048\" />\r\n        <option name=\"PROFILING_MODE\" value=\"NOT_SET\" />\r\n      </Profilers>\r\n      <option name=\"DEEP_LINK\" value=\"\" />\r\n      <option name=\"ACTIVITY_CLASS\" value=\"androidx.compose.ui.tooling.PreviewActivity\" />\r\n      <option name=\"SEARCH_ACTIVITY_IN_GLOBAL_SCOPE\" value=\"true\" />\r\n      <option name=\"SKIP_ACTIVITY_VALIDATION\" value=\"false\" />\r\n      <compose-preview-run-configuration composable-fqn=\"com.androidDev.dockital.screens.Search.SearhScreenKt.SearchScreenPreview\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n        <option name=\"Android.Gradle.BeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Android Instrumented Tests.ExampleInstrumentedTest\" />\r\n        <item itemvalue=\"Compose Preview.SearchScreenPreview\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"4062b167-06fe-4ee1-ac01-21a06d038861\" name=\"Changes\" comment=\"\" />\r\n      <created>1663792536443</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1663792536443</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/.idea/workspace.xml	(date 1668913328419)
+@@ -13,7 +13,30 @@
+     <option name="autoReloadType" value="NONE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="4062b167-06fe-4ee1-ac01-21a06d038861" name="Changes" comment="" />
++    <list default="true" id="4062b167-06fe-4ee1-ac01-21a06d038861" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/app/src/links_data.txt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/MintNFT.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/plus100.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/plus50.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/MainActivity.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/RootScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/RootScreen.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -25,7 +48,7 @@
+   <component name="CompilerWorkspaceConfiguration">
+     <option name="PARALLEL_COMPILATION" value="false" />
+   </component>
+-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/ujjwalsrivastava/.android/avd/Pixel_3a_API_33_arm64-v8a.avd]" />
++  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\dhruv\.android\avd\Pixel_6_Pro_API_30.avd]" />
+   <component name="ExternalProjectsData">
+     <projectState path="$PROJECT_DIR$">
+       <ProjectState />
+@@ -68,6 +91,9 @@
+       <filtered-out-file-type name="TAG" />
+       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+     </file-type-list>
++  </component>
++  <component name="HighlightingSettingsPerFile">
++    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.compose.material/material/1.2.1/46804a36104b0ba0a1a7cdaefb19c0fb34b32bb5/material-1.2.1-sources.jar!/androidx/compose/material/TextField.kt" root0="SKIP_INSPECTION" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -76,15 +102,22 @@
+     <option name="selectedTabId" value="CurrentFile" />
+   </component>
+   <component name="ProjectId" id="2F5qx9eN474NsCNb6uSeJl5jppP" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
++    <ConfirmationsSetting value="2" id="Add" />
++  </component>
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">
++    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
++    <property name="DEBUGGABLE_DEVICE" value="Pixel_6_Pro_API_30 [emulator-5554]" />
++    <property name="DEBUGGABLE_PROCESS" value="com.androidDev.dockital" />
++    <property name="DEBUGGER_ID" value="Auto" />
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
++    <property name="SHOW_ALL_PROCESSES" value="false" />
+     <property name="cidr.known.project.marker" value="true" />
+     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="DeviceSpec" />
+     <property name="dart.analysis.tool.window.visible" value="false" />
+@@ -93,7 +126,7 @@
+     <property name="project.structure.proportion" value="0.17" />
+     <property name="project.structure.side.proportion" value="0.2" />
+     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
++    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+     <property name="show.migrate.to.gradle.popup" value="false" />
+   </component>
+   <component name="PsdUISettings">
+@@ -221,6 +254,67 @@
+         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+       </method>
+     </configuration>
++    <configuration name="MintPushPreview" type="ComposePreviewRunConfiguration" activateToolWindowBeforeRun="false" singleton="false" temporary="true">
++      <module name="Dockital.app.main" />
++      <option name="DEPLOY" value="true" />
++      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
++      <option name="DEPLOY_AS_INSTANT" value="false" />
++      <option name="ARTIFACT_NAME" value="" />
++      <option name="PM_INSTALL_OPTIONS" value="" />
++      <option name="ALL_USERS" value="false" />
++      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
++      <option name="CLEAR_APP_STORAGE" value="false" />
++      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
++      <option name="ACTIVITY_EXTRA_FLAGS" value="--es composable com.androidDev.dockital.screens.postNFT.MintNFTKt.MintPushPreview" />
++      <option name="MODE" value="specific_activity" />
++      <option name="CLEAR_LOGCAT" value="false" />
++      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
++      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
++      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
++      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
++      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
++      <option name="DEBUGGER_TYPE" value="Auto" />
++      <Auto>
++        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
++        <option name="SHOW_STATIC_VARS" value="true" />
++        <option name="WORKING_DIR" value="" />
++        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
++        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
++      </Auto>
++      <Hybrid>
++        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
++        <option name="SHOW_STATIC_VARS" value="true" />
++        <option name="WORKING_DIR" value="" />
++        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
++        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
++      </Hybrid>
++      <Java />
++      <Native>
++        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
++        <option name="SHOW_STATIC_VARS" value="true" />
++        <option name="WORKING_DIR" value="" />
++        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
++        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
++      </Native>
++      <Profilers>
++        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
++        <option name="STARTUP_PROFILING_ENABLED" value="false" />
++        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
++        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
++        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
++        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
++        <option name="PROFILING_MODE" value="NOT_SET" />
++      </Profilers>
++      <option name="DEEP_LINK" value="" />
++      <option name="ACTIVITY_CLASS" value="androidx.compose.ui.tooling.PreviewActivity" />
++      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="true" />
++      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
++      <compose-preview-run-configuration composable-fqn="com.androidDev.dockital.screens.postNFT.MintNFTKt.MintPushPreview" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="SearchScreenPreview" type="ComposePreviewRunConfiguration" temporary="true">
+       <module name="Dockital.app" />
+       <option name="DEPLOY" value="true" />
+@@ -284,6 +378,7 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Compose Preview.MintPushPreview" />
+         <item itemvalue="Android Instrumented Tests.ExampleInstrumentedTest" />
+         <item itemvalue="Compose Preview.SearchScreenPreview" />
+       </list>
+@@ -311,4 +406,22 @@
+       </map>
+     </option>
+   </component>
++  <component name="VcsManagerConfiguration">
++    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
++  </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-function">
++          <url>file://$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/MintNFT.kt</url>
++          <line>43</line>
++          <properties method="MintPush">
++            <option name="EMULATED" value="true" />
++            <option name="WATCH_EXIT" value="false" />
++          </properties>
++          <option name="timeStamp" value="2" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
++  </component>
+ </project>
+\ No newline at end of file
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetDropDown\">\r\n    <targetSelectedWithDropDown>\r\n      <Target>\r\n        <type value=\"QUICK_BOOT_TARGET\" />\r\n        <deviceKey>\r\n          <Key>\r\n            <type value=\"VIRTUAL_DEVICE_PATH\" />\r\n            <value value=\"$USER_HOME$/.android/avd/Pixel_3a_API_33_arm64-v8a.avd\" />\r\n          </Key>\r\n        </deviceKey>\r\n      </Target>\r\n    </targetSelectedWithDropDown>\r\n    <timeTargetWasSelectedWithDropDown value=\"2022-11-17T21:04:53.044784Z\" />\r\n    <runningDeviceTargetsSelectedWithDialog>\r\n      <Target>\r\n        <type value=\"RUNNING_DEVICE_TARGET\" />\r\n        <deviceKey>\r\n          <Key>\r\n            <type value=\"VIRTUAL_DEVICE_PATH\" />\r\n            <value value=\"C:\\Users\\dhruv\\.android\\avd\\Pixel_6_Pro_API_30.avd\" />\r\n          </Key>\r\n        </deviceKey>\r\n      </Target>\r\n    </runningDeviceTargetsSelectedWithDialog>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1668847896496)
+@@ -1,18 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="deploymentTargetDropDown">
+-    <targetSelectedWithDropDown>
+-      <Target>
+-        <type value="QUICK_BOOT_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="$USER_HOME$/.android/avd/Pixel_3a_API_33_arm64-v8a.avd" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </targetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2022-11-17T21:04:53.044784Z" />
+     <runningDeviceTargetsSelectedWithDialog>
+       <Target>
+         <type value="RUNNING_DEVICE_TARGET" />
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'org.jetbrains.kotlin.android'\r\n}\r\n\r\nandroid {\r\n    compileSdk 33\r\n\r\n    defaultConfig {\r\n        applicationId \"com.androidDev.dockital\"\r\n        minSdkVersion 21\r\n        targetSdk 33\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n        vectorDrawables {\r\n            useSupportLibrary true\r\n        }\r\n        buildFeatures{\r\n            compose true\r\n        }\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_11\r\n        targetCompatibility JavaVersion.VERSION_11\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '11'\r\n//        useIR = true\r\n    }\r\n    buildFeatures {\r\n        compose true\r\n    }\r\n    composeOptions {\r\n        kotlinCompilerExtensionVersion compose_version\r\n        kotlinCompilerVersion '1.6.10'\r\n    }\r\n    packagingOptions {\r\n        resources {\r\n            excludes += '/META-INF/{AL2.0,LGPL2.1}'\r\n        }\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation \"androidx.compose.material:material-icons-extended:1.2.1\"\r\n    implementation 'androidx.core:core-ktx:1.9.0'\r\n    implementation \"androidx.compose.ui:ui:1.2.1\"\r\n    implementation \"androidx.compose.material:material:1.2.1\"\r\n    implementation \"androidx.compose.material:material:1.2.1\"\r\n    implementation \"androidx.compose.ui:ui-tooling-preview:1.2.1\"\r\n    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'\r\n    implementation 'androidx.activity:activity-compose:1.6.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n    androidTestImplementation \"androidx.compose.ui:ui-test-junit4:1.2.1\"\r\n    debugImplementation \"androidx.compose.ui:ui-tooling:1.2.1\"\r\n    implementation 'androidx.navigation:navigation-compose:2.6.0-alpha01'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/app/build.gradle	(date 1668877352712)
+@@ -48,6 +48,7 @@
+             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+         }
+     }
++    namespace 'com.androidDev.dockital'
+ }
+ 
+ dependencies {
+Index: app/src/links_data.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/links_data.txt b/app/src/links_data.txt
+new file mode 100644
+--- /dev/null	(date 1668874596778)
++++ b/app/src/links_data.txt	(date 1668874596778)
+@@ -0,0 +1,12 @@
++StackOverflow :-
++    Box Scrollable = https://stackoverflow.com/questions/72769474/how-to-scroll-jetpack-compose-screen-that-overflows-its-contents
++    Compose Error  =  https://stackoverflow.com/questions/63801346/composable-invocations-can-only-happen-from-the-context-of-an-composable-funct
++    Dashed Border = https://stackoverflow.com/questions/66427587/how-to-have-dashed-border-in-jetpack-compose
++
++Android Developer :-
++    https://developer.android.com/jetpack/compose/layouts/alignment-lines
++
++Others:-
++    https://www.jetpackcompose.net/textfield-in-jetpack-compose
++    https://stackoverflow.com/questions/64376333/background-color-on-button-in-jetpack-compose
++    https://www.jetpackcompose.net/
+\ No newline at end of file
+Index: app/src/main/java/com/androidDev/dockital/screens/postNFT/MintNFT.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/androidDev/dockital/screens/postNFT/MintNFT.kt b/app/src/main/java/com/androidDev/dockital/screens/postNFT/MintNFT.kt
+new file mode 100644
+--- /dev/null	(date 1668916300362)
++++ b/app/src/main/java/com/androidDev/dockital/screens/postNFT/MintNFT.kt	(date 1668916300362)
+@@ -0,0 +1,306 @@
++package com.androidDev.dockital.screens.postNFT
++
++import android.graphics.Bitmap
++import android.net.Uri
++import android.provider.MediaStore
++import androidx.activity.compose.rememberLauncherForActivityResult
++import androidx.activity.result.contract.ActivityResultContracts
++import androidx.compose.foundation.*
++import androidx.compose.foundation.gestures.Orientation
++import androidx.compose.foundation.gestures.scrollable
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material.*
++import androidx.compose.material.icons.Icons
++import androidx.compose.material.icons.filled.Clear
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.draw.blur
++import androidx.compose.ui.geometry.CornerRadius
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.graphics.PathEffect
++import androidx.compose.ui.graphics.asImageBitmap
++import androidx.compose.ui.graphics.drawscope.Stroke
++import androidx.compose.ui.platform.LocalConfiguration
++import androidx.compose.ui.platform.LocalContext
++import androidx.compose.ui.res.painterResource
++import androidx.compose.ui.text.font.FontWeight
++import androidx.compose.ui.text.style.TextAlign
++import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
++import com.androidDev.dockital.R
++
++@Preview(showBackground = true)
++@Composable
++fun MintPushPreview(){
++    MintPush()
++}
++
++@Composable
++fun MintPush(){
++    var nameFilled: Boolean = true
++    var descripFilled:Boolean = true
++    var configuration = LocalConfiguration.current
++    var imageUri = remember {
++        mutableStateOf<Uri?>(null)
++    }
++    var imageFilled: Boolean = Uri.EMPTY.equals(imageUri)
++    var context = LocalContext.current
++    var bitmap =  remember {
++        mutableStateOf<Bitmap?>(null)
++    }
++
++    var launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) {
++            uri: Uri? -> imageUri.value = uri
++    }
++    var descriptionRem = remember{
++        mutableStateOf<String>("")
++    }
++    var nameRem = remember {
++        mutableStateOf<String>("")
++    }
++    var scrollState = rememberScrollState()
++    var blurValue = 0.dp
++    Column (
++        modifier = Modifier
++            .background(Color(32, 15, 52))
++            .fillMaxSize()
++            .blur(blurValue)
++            .padding(15.dp)
++            .scrollable(state = scrollState, Orientation.Vertical)
++            ){
++//        add Logo if Filling Empty
++//        Image(painter = , contentDescription = )
++
++        Spacer(
++            modifier = Modifier.padding(top = 50.dp)
++        )
++        Text(
++            text = "Create New NFT",
++            textAlign = TextAlign.Center,
++            color = Color.White,
++            fontSize = 30.sp,
++            fontWeight = FontWeight.Bold,
++//            modifier = Modifier.
++        )
++        Spacer(
++            modifier = Modifier.padding(top = 15.dp)
++        )
++        Row {
++            Text(
++                text = "Image, Video, Audio, or 3D Model",
++                color = Color.White,
++                fontWeight = FontWeight.Bold,
++                fontSize = 16.sp
++            )
++            Text(
++                text = "*",
++                color = Color.Red,
++                fontSize = 15.sp
++
++            )
++        }
++        Text(
++            text = "File Type Supported PNG, JPG, GIF, SVG, MP4",
++            color = Color.White,
++            fontSize = 13.sp
++        )
++        var stroke = Stroke(width = 5f,
++            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
++        )
++
++        Spacer(
++            modifier = Modifier.padding(top = 15.dp)
++        )
++        Box(
++            modifier = Modifier
++                .size(
++                    width = (configuration.screenWidthDp.dp),
++                    height = ((configuration.screenHeightDp * 0.3).dp)
++                )
++            //                .padding(horizontal = (configuration.screenWidthDp * 0.1).dp)
++        ) {
++            if (!imageFilled) {
++                var bitImage : Bitmap = MediaStore.Images.Med(context.contentResolver, imageUri.value)
++                context.contentResolver.query(
++                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
++                )
++                if(!(imageUri.value == null)){
++                    Image(
++                        modifier = Modifier
++                            .fillMaxSize(),
++                        bitmap = bitImage.asImageBitmap(),
++                        contentDescription = " "
++                    )
++                }
++
++            }
++            else{
++                Canvas(
++                    modifier = Modifier
++                        .fillMaxSize()
++
++                ) {
++                    drawRoundRect(
++                        color = Color.Green,
++                        style = stroke,
++                        cornerRadius = CornerRadius(8.dp.toPx())
++                    )
++                }
++                Button(
++                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(alpha = 0.3f)),
++                    modifier = Modifier
++                        .fillMaxSize(),
++                    onClick = {
++                        launcher.launch("image/*")
++                    },
++                )
++                {
++                    Column(
++                        modifier = Modifier
++                            .fillMaxSize(),
++                        horizontalAlignment = Alignment.CenterHorizontally,
++                        verticalArrangement = Arrangement.Center
++
++                    ) {
++                        Image(
++                            painter = painterResource(id = R.drawable.plus100),
++                            contentDescription = "Plus Icon",
++                            modifier = Modifier
++                                .width(100.dp)
++                                .height(100.dp),
++                        )
++
++                        Text(
++                            text = "Click To Add Media",
++                            color = Color.White,
++                            fontSize = 15.sp
++                        )
++
++                    }
++
++                }
++            }
++        }
++        Spacer(
++            modifier = Modifier.padding(top = 15.dp)
++        )
++        Row {
++            Text(
++                text = "Name ",
++                color = Color.White,
++                fontSize = 15.sp
++            )
++            Text(
++                text = "*",
++                color = Color.Red,
++                fontSize = 15.sp,
++
++            )
++        }
++        Spacer(
++            modifier = Modifier.padding(top = 3.dp)
++        )
++        TextField(
++            value = nameRem.value,
++            onValueChange = {
++                nameRem.value = it
++            },
++            trailingIcon = {
++                Icon(
++                    Icons.Default.Clear,
++                    contentDescription = "clear text",
++                    modifier = Modifier
++                        .clickable {
++                            nameRem = mutableStateOf(" ")
++                        }
++                )
++            },
++            colors = TextFieldDefaults.textFieldColors(textColor = Color.White),
++            modifier = Modifier
++                .border(width = 2.dp, color = Color.Green, shape = RoundedCornerShape(8.dp))
++                .fillMaxWidth()
++        )
++        Spacer(
++            modifier = Modifier.padding(top = 15.dp)
++        )
++        Row {
++            Text(
++                text = "Description ",
++                color = Color.White,
++                fontSize = 15.sp
++            )
++            Text(
++                text = "*",
++                color = Color.Red,
++                fontSize = 15.sp
++            )
++        }
++        Spacer(
++            modifier = Modifier.padding(top = 3.dp)
++        )
++        TextField(
++            value = descriptionRem.value,
++            onValueChange = {
++                descriptionRem.value = it
++                descripFilled = true
++            },
++            colors = TextFieldDefaults.textFieldColors(textColor = Color.White),
++            modifier = Modifier
++                .border(width = 2.dp, color = Color.Green, shape = RoundedCornerShape(8.dp))
++                .fillMaxWidth()
++                .height(140.dp)
++
++        )
++
++        if(!descripFilled){
++            Spacer(
++                modifier = Modifier.padding(top = 15.dp)
++            )
++            Text(
++                text = " Fill All Fields",
++                color = Color.Red,
++                fontSize = 15.sp
++            )
++        }
++        Button(
++            onClick =  {
++                if(nameRem.value.toString().isEmpty()){
++                    nameFilled = false
++                }
++                if(descriptionRem.value.toString().isEmpty()){
++                    nameFilled = false
++                }
++            },
++            colors = ButtonDefaults.buttonColors(backgroundColor = Color(84,180,53)),
++            modifier = Modifier
++                .fillMaxWidth()
++
++        ){
++            Text(
++                text = "Mint",
++                color = Color.White,
++                textAlign = TextAlign.Center
++            )
++        }
++        Spacer(
++            modifier = Modifier.padding(top = 15.dp)
++        )
++        Row {
++            Text(
++                text = "*",
++                color = Color.Red,
++                fontSize = 15.sp
++            )
++            Text(
++                text = "Required Fields",
++                color = Color.White,
++                fontSize = 15.sp
++            )
++        }
++    }
++}
+Index: app/src/main/java/com/androidDev/dockital/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.androidDev.dockital\r\n\r\nimport android.app.SearchManager\r\nimport android.content.Context\r\nimport android.os.Bundle\r\nimport android.view.Menu\r\nimport android.widget.SearchView\r\nimport androidx.activity.ComponentActivity\r\nimport androidx.activity.compose.setContent\r\nimport androidx.activity.viewModels\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.material.MaterialTheme\r\nimport androidx.compose.material.Surface\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.lifecycle.viewmodel.compose.viewModel\r\nimport com.androidDev.dockital.ui.theme.NFTMarketplaceTheme\r\n\r\nclass MainActivity : ComponentActivity() {\r\n\r\n    private val mainViewModel: MainViewModel by viewModels()\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContent {\r\n            NFTMarketplaceTheme {\r\n                Surface(\r\n                    modifier = Modifier.fillMaxSize(),\r\n                    color = MaterialTheme.colors.background\r\n                ) {\r\n                    RootScreen(mainViewModel = mainViewModel)\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/androidDev/dockital/MainActivity.kt b/app/src/main/java/com/androidDev/dockital/MainActivity.kt
+--- a/app/src/main/java/com/androidDev/dockital/MainActivity.kt	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/app/src/main/java/com/androidDev/dockital/MainActivity.kt	(date 1668786034723)
+@@ -1,10 +1,6 @@
+ package com.androidDev.dockital
+ 
+-import android.app.SearchManager
+-import android.content.Context
+ import android.os.Bundle
+-import android.view.Menu
+-import android.widget.SearchView
+ import androidx.activity.ComponentActivity
+ import androidx.activity.compose.setContent
+ import androidx.activity.viewModels
+@@ -12,7 +8,6 @@
+ import androidx.compose.material.MaterialTheme
+ import androidx.compose.material.Surface
+ import androidx.compose.ui.Modifier
+-import androidx.lifecycle.viewmodel.compose.viewModel
+ import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
+ 
+ class MainActivity : ComponentActivity() {
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"com.androidDev.dockital\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.NFTMarketplace\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\"\r\n            android:label=\"@string/app_name\"\r\n            android:theme=\"@style/Theme.NFTMarketplace\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n<!--        &lt;!&ndash;        added&ndash;&gt;-->\r\n\r\n<!--        <activity android:name=\".SearchableActivity\"-->\r\n<!--            android:exported=\"true\" >-->\r\n<!--            <intent-filter>-->\r\n<!--                <action android:name=\"android.intent.action.SEARCH\" />-->\r\n<!--            </intent-filter>-->\r\n<!--            <meta-data android:name=\"android.app.searchable\"-->\r\n<!--                android:resource=\"@xml/searchable\"/>-->\r\n<!--        </activity>-->\r\n\r\n\r\n<!--        &lt;!&ndash; this activity enables the search dialog to initiate searches-->\r\n<!--             in the SearchableActivity &ndash;&gt;-->\r\n<!--        <activity android:name=\".OtherActivity\" ... >-->\r\n<!--        &lt;!&ndash; enable the search dialog to send searches to SearchableActivity &ndash;&gt;-->\r\n<!--        <meta-data android:name=\"android.app.default_searchable\"-->\r\n<!--            android:value=\".SearchableActivity\" />-->\r\n<!--        </activity>-->\r\n\r\n<!--        &lt;!&ndash;        //added&ndash;&gt;-->\r\n        <activity android:name=\".SearchableActivity\">\r\n            <meta-data android:name=\"android.app.searchable\"\r\n                android:resource=\"@xml/searchable\" />\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/app/src/main/AndroidManifest.xml	(date 1668877352733)
+@@ -1,7 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    package="com.androidDev.dockital">
++    xmlns:tools="http://schemas.android.com/tools">
+ 
+     <application
+         android:allowBackup="true"
+Index: local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>## This file must *NOT* be checked into Version Control Systems,\r\n# as it contains information specific to your local configuration.\r\n#\r\n# Location of the SDK. This is only used by Gradle.\r\n# For customization when using a Version Control System, please read the\r\n# header note.\r\n#Thu Sep 22 11:52:44 IST 2022\r\nsdk.dir=/Users/ujjwalsrivastava/Library/Android/sdk\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/local.properties b/local.properties
+--- a/local.properties	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/local.properties	(date 1668788813376)
+@@ -5,4 +5,4 @@
+ # For customization when using a Version Control System, please read the
+ # header note.
+ #Thu Sep 22 11:52:44 IST 2022
+-sdk.dir=/Users/ujjwalsrivastava/Library/Android/sdk
++sdk.dir = C:/Users/dhruv/AppData/Local/Android/Sdk
+Index: app/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/build
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/.gitignore b/app/.gitignore
+--- a/app/.gitignore	(revision 757f57e732332a0c66e4e8d855dc60bf925c3b1e)
++++ b/app/.gitignore	(date 1668833670139)
+@@ -1,1 +1,3 @@
+-/build
+\ No newline at end of file
++/build
++local.properties
++links_data
+\ No newline at end of file

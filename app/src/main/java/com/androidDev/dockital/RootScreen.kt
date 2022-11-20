@@ -18,6 +18,7 @@ import com.androidDev.dockital.onboarding.OnBoardingScreen
 import com.androidDev.dockital.screens.Search.MainViewModel
 import com.androidDev.dockital.screens.Search.SearchScreen
 import com.androidDev.dockital.screens.home.HomeScreen
+import com.androidDev.dockital.screens.postNFT.MintPush
 import com.androidDev.dockital.screens.stats.StatsScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 
@@ -62,7 +63,7 @@ fun RootScreen(mainViewModel: MainViewModel) {
             }
 
             composable(NavigationItem.Add.route) {
-                Text("Add")
+                MintPush()
             }
 
             composable(NavigationItem.Search.route) {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.androidDev.dockital">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -45,10 +44,10 @@
 <!--        </activity>-->
 
 <!--        &lt;!&ndash;        //added&ndash;&gt;-->
-        <activity android:name=".SearchableActivity">
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
+<!--        <activity android:name="MainActivity"-->
+<!--            <meta-data android:name="android.app.searchable"-->
+<!--                android:resource="@xml/searchable" />-->
+<!--        </activity>-->
     </application>
 
 </manifest>

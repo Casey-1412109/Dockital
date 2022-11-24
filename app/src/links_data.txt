@@ -28,3 +28,4 @@ Others:-
     https://stackoverflow.com/questions/64376333/background-color-on-button-in-jetpack-compose
     https://www.jetpackcompose.net/
     https://www.howtodoandroid.com/pick-image-from-gallery-jetpack-compose/
+    https://medium.com/@daniatitienei/navigate-with-arguments-in-jetpack-compose-90846d70bb7f

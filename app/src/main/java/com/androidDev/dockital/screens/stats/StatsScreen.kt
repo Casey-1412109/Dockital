@@ -2,8 +2,10 @@ package com.androidDev.dockital.screens.stats
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assessment
@@ -16,15 +18,56 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.androidDev.dockital.components.customTabOffset
 import com.androidDev.dockital.models.rankings
+import com.androidDev.dockital.navigations.NavigationItem
+import com.androidDev.dockital.screens.Search.DetailsScreen
+import com.androidDev.dockital.screens.Search.SearchScreen
+import com.androidDev.dockital.screens.home.HomeScreen
+import com.androidDev.dockital.screens.postNFT.MintPush
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 
+@Preview
 @Composable
+fun StatsScreenPreview(){
+    StatsScreen()
+}
+@Composable
+fun StatsScreen(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "mainStateScreen") {
+        composable("mainStateScreen") {
+            MainStatsScreen(navigateController = navController)
+        }
+        composable("detailedMainStates/{NftName}",
+        arguments = listOf(navArgument("NftName"){defaultValue = "Azumi"})
+        )
+        {backStackEntery ->
+            val nftName = backStackEntery.arguments?.getString("NftName")
+            nftName?.let {
+                DetailsScreen(nftName = it, navControllerDetails = {
+                    navController.navigate("mainStateScreen")
+                    }
+                )
+            }
+        }
+        composable("Home"){
+            HomeScreen()
+        }
 
+    }
+}
+
+@Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
-fun StatsScreen() {
+fun MainStatsScreen(navigateController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -59,7 +102,7 @@ fun StatsScreen() {
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.padding(16.dp, 20.dp)
             ) {
-                RankingTable(rankings)
+                RankingTable(rankings, navControllerTable = navigateController)
             }
         }
     }
@@ -116,8 +159,9 @@ fun CustomTabComponent() {
 
 @Preview
 @Composable
-fun StatScreenPreview() {
+fun StatMainScreenPreview() {
     NFTMarketplaceTheme {
-        StatsScreen()
+        val tempNavStatsMain = rememberNavController()
+        MainStatsScreen(tempNavStatsMain)
     }
 }

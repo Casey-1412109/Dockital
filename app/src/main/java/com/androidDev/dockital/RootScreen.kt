@@ -19,6 +19,7 @@ import com.androidDev.dockital.screens.Search.MainViewModel
 import com.androidDev.dockital.screens.Search.SearchScreen
 import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.postNFT.MintPush
+import com.androidDev.dockital.screens.stats.MainStatsScreen
 import com.androidDev.dockital.screens.stats.StatsScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 
@@ -43,7 +44,7 @@ fun RootScreen(mainViewModel: MainViewModel) {
             startDestination = if (shouldShowOnBoarding) {
                 NavigationItem.Login.route
             } else {
-                NavigationItem.Stats.route
+                NavigationItem.Home.route
             }) {
             composable(NavigationItem.Login.route) {
                 OnBoardingScreen(

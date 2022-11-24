@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -76,7 +78,7 @@ fun MintPush(){
             .fillMaxSize()
             .blur(blurValue)
             .padding(15.dp)
-            .verticalScroll(scrollState)
+            .scrollable(state = scrollState, orientation = Orientation.Vertical)
             ){
 //        add Logo if Filling Empty
 //        Image(painter = , contentDescription = )
@@ -89,8 +91,7 @@ fun MintPush(){
             textAlign = TextAlign.Center,
             color = Color.White,
             fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-//            modifier = Modifier.
+            fontWeight = FontWeight.Bold
         )
 
         Spacer(
@@ -205,6 +206,7 @@ fun MintPush(){
                 fontSize = 15.sp,
 
             )
+
         }
         Spacer(
             modifier = Modifier.padding(top = 3.dp)
@@ -217,6 +219,7 @@ fun MintPush(){
             singleLine = true,
             colors = TextFieldDefaults.textFieldColors(textColor = Color.White),
             modifier = Modifier
+
                 .border(width = 2.dp, color = Color.Green, shape = RoundedCornerShape(8.dp))
                 .fillMaxWidth()
         )
@@ -285,9 +288,7 @@ fun MintPush(){
                     Toast.makeText(localContext, "Fill All Fields", Toast.LENGTH_SHORT).show()
                 }
                 else{
-//                    var tempRanking = Ranking(title = nameRem.value, image = imageUri.value)
                     Toast.makeText(localContext, "Ujjwal Wait For Next Push", Toast.LENGTH_SHORT).show()
-
                 }
 
             },

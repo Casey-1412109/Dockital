@@ -44,14 +44,16 @@ fun SearchScreen() {
             arguments = listOf(navArgument("countryName") { type = NavType.StringType })
         ) { backStackEntry ->
             backStackEntry.arguments?.getString("countryName")?.let { nftName ->
-                DetailsScreen(nftName = nftName)
+                DetailsScreen(nftName = nftName, navControllerDetails = {
+                    navController.navigate("main")
+                })
             }
         }
     }
 }
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavController ) {
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     Column {
         SearchView(textState)

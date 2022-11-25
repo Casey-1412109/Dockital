@@ -1,4 +1,4 @@
-package com.androidDev.dockital.screens.Search
+package com.androidDev.dockital.screens.searchNav
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.*
@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.androidDev.dockital.R
 import com.androidDev.dockital.models.Ranking
-import com.androidDev.dockital.models.rankings
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import kotlin.random.Random
 

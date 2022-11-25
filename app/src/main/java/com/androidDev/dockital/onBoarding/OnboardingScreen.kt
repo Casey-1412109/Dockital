@@ -1,4 +1,4 @@
-package com.androidDev.dockital.onboarding
+package com.androidDev.dockital.onBoarding
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image

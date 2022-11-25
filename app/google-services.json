@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "11506958924",
+    "project_id": "dockital",
+    "storage_bucket": "dockital.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11506958924:android:b7c2663974e54ebb23eae9",
+        "android_client_info": {
+          "package_name": "com.androidDev.dockital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11506958924-kk03lgf42948q7c3ouqcdp2b2tvkoibn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMeY6hcu9N357r1NwbNLrxQn5ftUupE-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11506958924-kk03lgf42948q7c3ouqcdp2b2tvkoibn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package com.androidDev.dockital.screens.Search
+package com.androidDev.dockital.screens.searchNav
 
 enum class SearchWidgetState {
     OPENED,

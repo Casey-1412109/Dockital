@@ -1,4 +1,4 @@
-package com.androidDev.dockital.screens.Profile
+package com.androidDev.dockital.screens.profileNav
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

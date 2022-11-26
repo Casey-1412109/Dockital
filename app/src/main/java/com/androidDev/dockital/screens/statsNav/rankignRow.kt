@@ -37,7 +37,6 @@ fun RankingRow(
         onClick = {
             navControllerRow.navigate("detailedMainStates/${title}")
         },
-//            Toast.makeText(context, "Button Clicked ",Toast.LENGTH_SHORT).show(),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(alpha = 0f))
 
     ){

@@ -2,7 +2,6 @@ package com.androidDev.dockital
 
 import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +16,7 @@ import com.androidDev.dockital.onBoarding.OnBoardingScreen
 import com.androidDev.dockital.screens.searchNav.mainViewModel
 import com.androidDev.dockital.screens.searchNav.SearchScreen
 import com.androidDev.dockital.screens.home.HomeScreen
+import com.androidDev.dockital.screens.logReg.LoginScreen
 import com.androidDev.dockital.screens.postNFT.MintPush
 import com.androidDev.dockital.screens.statsNav.StatsScreen
 
@@ -70,7 +70,8 @@ fun RootScreen(mainViewModel: mainViewModel) {
             }
 
             composable(NavigationItem.Profile.route) {
-                Text("Profile")
+                //Text("Profile")
+                LoginScreen()
             }
         }
 

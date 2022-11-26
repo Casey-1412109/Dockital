@@ -14,8 +14,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4062b167-06fe-4ee1-ac01-21a06d038861" name="Changes" comment="Detailed Screen UI">
-      <change afterPath="$PROJECT_DIR$/app/google-services.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/dataBase/mainDB.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/logReg/LoginPage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/logReg/Register.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logie.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logiiii.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/login_image.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/register_page.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" afterDir="false" />
@@ -26,23 +30,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/RootScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/RootScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/navigations/BottomBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/navigations/bottomBar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/navigations/Navigation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/navigations/navigation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/onboarding/OnboardingScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/onBoarding/OnboardingScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/Profile/MainProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/profileNav/mainProfile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/Search/DetailsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/detailsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/Search/MainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/mainViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/Search/SearchScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/SearchScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/Search/SearchWidgetState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/SearchWidgetState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/MintNFT.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/mintNFT.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/stats/RankignRow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankignRow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/stats/RankingTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankingTable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/stats/StatsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/statsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankignRow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankignRow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +48,7 @@
   <component name="CompilerWorkspaceConfiguration">
     <option name="PARALLEL_COMPILATION" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\dhruv\.android\avd\Pixel_6_Pro_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[6e484ced]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -106,14 +99,15 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.compose.material/material/1.2.1/46804a36104b0ba0a1a7cdaefb19c0fb34b32bb5/material-1.2.1-sources.jar!/androidx/compose/material/TextField.kt" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-compose/2.6.0-alpha01/8b1dd15fa0586e9f0850d9a3e3ece7bec443a75a/navigation-compose-2.6.0-alpha01-sources.jar!/androidx/navigation/compose/NavHost.kt" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.compose.material/material/1.2.1/46804a36104b0ba0a1a7cdaefb19c0fb34b32bb5/material-1.2.1-sources.jar!/androidx/compose/material/TextField.kt" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2F5qx9eN474NsCNb6uSeJl5jppP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -130,7 +124,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="DeviceSpec" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../turbo-giggle/android_app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -142,6 +136,9 @@
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+    </key>
     <key name="CreateKotlinClassDialog.RecentsKey">
       <recent name="com.androidDev.dockital" />
     </key>
@@ -371,5 +368,16 @@
     <MESSAGE value="Mint Screen" />
     <MESSAGE value="Detailed Screen UI" />
     <option name="LAST_COMMIT_MESSAGE" value="Detailed Screen UI" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/logReg/LoginPage.kt</url>
+          <line>69</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

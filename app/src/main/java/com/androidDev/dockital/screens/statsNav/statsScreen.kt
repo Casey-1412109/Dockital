@@ -42,6 +42,9 @@ fun StatsScreen(){
         composable("detailedMainStates/{NftName}",
         arguments = listOf(navArgument("NftName"){defaultValue = "Azumi"})
         )
+//        composable("detailScreen",
+//            arguments = listOf(navArgument("NftName"){defaultValue = "Azumi"})
+//        )
         {backStackEntery ->
             val nftName = backStackEntery.arguments?.getString("NftName")
             nftName?.let {

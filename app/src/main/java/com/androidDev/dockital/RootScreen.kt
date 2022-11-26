@@ -18,6 +18,8 @@ import com.androidDev.dockital.screens.searchNav.SearchScreen
 import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.logReg.LoginScreen
 import com.androidDev.dockital.screens.postNFT.MintPush
+import com.androidDev.dockital.screens.profileNav.MainProfile
+import com.androidDev.dockital.screens.profileNav.MainProfilePreview
 import com.androidDev.dockital.screens.statsNav.StatsScreen
 
 //import com.androidDev.dockital.screens.Search.SearchScreen
@@ -71,7 +73,8 @@ fun RootScreen(mainViewModel: mainViewModel) {
 
             composable(NavigationItem.Profile.route) {
                 //Text("Profile")
-                LoginScreen()
+                //LoginScreen()
+                MainProfile(navController = navigationController)
             }
         }
 

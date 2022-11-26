@@ -2,6 +2,7 @@ package com.androidDev.dockital.screens.logReg
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -106,38 +107,66 @@ fun RegisterPage(navController: NavController) {
                             OutlinedTextField(
                                 value = nameValue.value,
                                 onValueChange = { nameValue.value = it },
-                                label = { Text(text = "Name") },
-                                placeholder = { Text(text = "Name") },
+                                //label = { Text(text = "Name" , color = Color.Gray) },
+                                placeholder = { Text(text = "Name", color = Color.Gray) },
                                 singleLine = true,
-                                modifier = Modifier.fillMaxWidth(0.8f)
+                                colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .border(
+                                        width = 2.dp,
+                                        color = Color.Green,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ),
                             )
 
                             OutlinedTextField(
                                 value = emailValue.value,
                                 onValueChange = { emailValue.value = it },
-                                label = { Text(text = "Email Address") },
-                                placeholder = { Text(text = "Email Address") },
+                                //label = { Text(text = "Email Address") },
+                                placeholder = { Text(text = "Email Address", color = Color.Gray) },
                                 singleLine = true,
-                                modifier = Modifier.fillMaxWidth(0.8f)
+                                colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .border(
+                                        width = 2.dp,
+                                        color = Color.Green,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ),
                             )
 
                             OutlinedTextField(
                                 value = phoneValue.value,
                                 onValueChange = { phoneValue.value = it },
-                                label = { Text(text = "Phone Number") },
-                                placeholder = { Text(text = "Phone Number") },
+                                //label = { Text(text = "Phone Number") },
+                                placeholder = { Text(text = "Phone Number", color = Color.Gray) },
                                 singleLine = true,
-                                modifier = Modifier.fillMaxWidth(0.8f),
+                                colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .border(
+                                        width = 2.dp,
+                                        color = Color.Green,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ),
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
                             )
 
                             OutlinedTextField(
                                 value = passwordValue.value,
                                 onValueChange = { passwordValue.value = it },
-                                label = { Text(text = "Password") },
-                                placeholder = { Text(text = "Password") },
+                                //label = { Text(text = "Password") },
+                                placeholder = { Text(text = "Password", color = Color.Gray) },
                                 singleLine = true,
-                                modifier = Modifier.fillMaxWidth(0.8f),
+                                colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .border(
+                                    width = 2.dp,
+                                    color = Color.Green,
+                                    shape = RoundedCornerShape(8.dp)
+                                     ),
                                 trailingIcon = {
                                     IconButton(onClick = {
                                         passwordVisibility.value = !passwordVisibility.value
@@ -156,10 +185,17 @@ fun RegisterPage(navController: NavController) {
                             OutlinedTextField(
                                 value = confirmPasswordValue.value,
                                 onValueChange = { confirmPasswordValue.value = it },
-                                label = { Text(text = "Confirm Password") },
-                                placeholder = { Text(text = "Confirm Password") },
+                                //label = { Text(text = "Confirm Password") },
+                                placeholder = { Text(text = "Confirm Password", color = Color.Gray) },
                                 singleLine = true,
-                                modifier = Modifier.fillMaxWidth(0.8f),
+                            colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .border(
+                                        width = 2.dp,
+                                        color = Color.Green,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ),
                                 trailingIcon = {
                                     IconButton(onClick = {
                                         confirmPasswordVisibility.value =
@@ -177,7 +213,8 @@ fun RegisterPage(navController: NavController) {
                             )
                             Spacer(modifier = Modifier.padding(10.dp))
                             Button(
-                                onClick = { }, modifier = Modifier
+                                onClick = { },
+                                modifier = Modifier
                                     .fillMaxWidth(0.8f)
                                     .height(50.dp)
                             ) {

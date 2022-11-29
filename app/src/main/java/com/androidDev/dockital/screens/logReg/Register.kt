@@ -1,5 +1,6 @@
 package com.androidDev.dockital.screens.logReg
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -29,24 +31,24 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.R
+//import com.androidDev.dockital.DataBaseHelper
+import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
-
-
 
 @Composable
 fun RegisterPage(navController: NavController) {
-
     val ima = painterResource(id = R.drawable.register_page)
-
     val nameValue = remember { mutableStateOf("") }
     val emailValue = remember { mutableStateOf("") }
     val phoneValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
     val confirmPasswordValue = remember { mutableStateOf("") }
-
     val passwordVisibility = remember { mutableStateOf(false) }
     val confirmPasswordVisibility = remember { mutableStateOf(false) }
-
+//    val context: Context = MainActivity.applicationContext()
+//    val dbConnect = DataBaseHelper(context = context)
+//    val dbReader = dbConnect.readableDatabase
+//    val dbWrite = dbConnect.writableDatabase
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +83,7 @@ fun RegisterPage(navController: NavController) {
                     .fillMaxWidth()
                     .fillMaxHeight(0.70f)
                     .clip(RoundedCornerShape(30.dp, 30.dp))
-                 //   .background(Color.White.copy(0.15f))
+                    //   .background(Color.White.copy(0.15f))
                     .padding(0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
@@ -163,10 +165,10 @@ fun RegisterPage(navController: NavController) {
                                 modifier = Modifier
                                     .fillMaxWidth(0.8f)
                                     .border(
-                                    width = 2.dp,
-                                    color = Color.Green,
-                                    shape = RoundedCornerShape(8.dp)
-                                     ),
+                                        width = 2.dp,
+                                        color = Color.Green,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ),
                                 trailingIcon = {
                                     IconButton(onClick = {
                                         passwordVisibility.value = !passwordVisibility.value
@@ -211,9 +213,12 @@ fun RegisterPage(navController: NavController) {
                                 visualTransformation = if (confirmPasswordVisibility.value) VisualTransformation.None
                                 else PasswordVisualTransformation()
                             )
+                            val localContext = LocalContext.current
                             Spacer(modifier = Modifier.padding(10.dp))
                             Button(
-                                onClick = { },
+                                onClick ={
+
+                                },
                                 modifier = Modifier
                                     .fillMaxWidth(0.8f)
                                     .height(50.dp)
@@ -225,7 +230,7 @@ fun RegisterPage(navController: NavController) {
                                 onClick = {
                                     navController.navigate("LoginScreen")
                                 },
-                                //colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(alpha = 0f))
+                                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(alpha = 0f))
 
                             ){
                                 Text(

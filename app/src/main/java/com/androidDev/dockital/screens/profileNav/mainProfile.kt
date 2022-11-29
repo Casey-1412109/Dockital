@@ -36,15 +36,15 @@ import kotlinx.coroutines.withContext
 @Composable
 fun MainProfile(navController: NavController){
     val configurationProfile = LocalConfiguration.current
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(32, 15, 52)),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                TopAppbarProfile(context = LocalContext.current.applicationContext)
-                ProfileEcommerce()
-            }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(32, 15, 52)),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TopAppbarProfile(context = LocalContext.current.applicationContext)
+        ProfileEcommerce()
+    }
 }
 
 private fun prepareOptionsData() {

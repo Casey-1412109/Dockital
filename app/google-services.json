@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "11506958924",
+    "firebase_url": "https://dockital-default-rtdb.firebaseio.com",
     "project_id": "dockital",
     "storage_bucket": "dockital.appspot.com"
   },

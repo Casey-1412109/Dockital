@@ -130,7 +130,7 @@ fun CustomTabComponent() {
             )
         }
     ) {
-        tabData.forEachIndexed { index, pair ->
+        tabData.forEachIndexed{ index, pair ->
             Tab(
                 selected = tabIndex == index,
                 onClick = {

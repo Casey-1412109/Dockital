@@ -1,5 +1,8 @@
     package com.androidDev.dockital.screens.logReg
 
+    import android.content.Context
+    import android.provider.Settings.Secure
+    import android.widget.Toast
     import androidx.compose.foundation.Image
     import androidx.compose.foundation.background
     import androidx.compose.foundation.border
@@ -28,19 +31,25 @@
     import androidx.navigation.compose.NavHost
     import androidx.navigation.compose.composable
     import androidx.navigation.compose.rememberNavController
+    import com.androidDev.dockital.MainActivity
     import com.androidDev.dockital.R
     import com.androidDev.dockital.screens.home.HomeScreen
+    import com.androidDev.dockital.signInChecker
     import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
+    import com.google.firebase.database.FirebaseDatabase
 
+    fun getAndroidId(context: Context){
+        Secure.getString(context.contentResolver, Secure.ANDROID_ID)
+    }
     @Composable
-    fun LoginScreen(){
+    fun LoginScreen(dbConnect: FirebaseDatabase, context: Context){
         val navController = rememberNavController()
         NavHost(
             navController = navController,
             startDestination = "LoginScreen"
         ) {
             composable("LoginScreen") {
-                LoginPage(navController = navController)
+                LoginPage(navController = navController, context = context, dbConnect = dbConnect)
             }
             composable("registerScreen"
               ) {
@@ -52,14 +61,12 @@
 
         }
     }
-
     @Composable
-    fun LoginPage(navController: NavController) {
-
+    fun LoginPage(navController: NavController, context: Context, dbConnect: FirebaseDatabase) {
+//        var progressStart = CircularProgressIndicator()
         val image = painterResource(id = R.drawable.logie)
         val emailValue = remember { mutableStateOf("") }
         val passwordValue = remember { mutableStateOf("") }
-
         val passwordVisibility = remember { mutableStateOf(false) }
         val focusRequester = remember { FocusRequester() }
 
@@ -161,7 +168,24 @@
 
                             Spacer(modifier = Modifier.padding(10.dp))
                             Button(
-                                onClick = {},
+                                onClick = {
+                                    if(emailValue.value == "" || passwordValue.value == "") {
+                                      Toast.makeText(
+                                          context,
+                                          "All Fields are Required",
+                                          Toast.LENGTH_LONG
+                                      ).show()
+                                    }
+                                    else{
+                                        signInChecker(
+                                            context = context,
+                                            dbConnect = dbConnect,
+                                            emailId = emailValue.value,
+                                            passWord = passwordValue.value,
+                                            navController = navController
+                                        )
+                                    }
+                                },
                                 modifier = Modifier
                                     .fillMaxWidth(0.8f)
                                     .height(50.dp)
@@ -208,7 +232,8 @@
     fun Login() {
         NFTMarketplaceTheme {
             val navController = rememberNavController()
-            LoginPage(navController)
+            var dbTemp = FirebaseDatabase.getInstance()
+            LoginPage(navController, MainActivity(), dbTemp)
         }
     }
 

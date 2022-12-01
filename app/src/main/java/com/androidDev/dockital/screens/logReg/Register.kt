@@ -1,6 +1,7 @@
 package com.androidDev.dockital.screens.logReg
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -30,25 +30,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.androidDev.dockital.R
-//import com.androidDev.dockital.DataBaseHelper
 import com.androidDev.dockital.MainActivity
+import com.androidDev.dockital.R
+import com.androidDev.dockital.signInChecker
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
+import com.google.firebase.database.FirebaseDatabase
 
 @Composable
-fun RegisterPage(navController: NavController) {
+fun RegisterPage(context: Context, navController: NavController, dbConnect : FirebaseDatabase) {
     val ima = painterResource(id = R.drawable.register_page)
     val nameValue = remember { mutableStateOf("") }
+    val userNameValue = remember { mutableStateOf("") }
     val emailValue = remember { mutableStateOf("") }
     val phoneValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
     val confirmPasswordValue = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
     val confirmPasswordVisibility = remember { mutableStateOf(false) }
-//    val context: Context = MainActivity.applicationContext()
-//    val dbConnect = DataBaseHelper(context = context)
-//    val dbReader = dbConnect.readableDatabase
-//    val dbWrite = dbConnect.writableDatabase
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -105,12 +103,26 @@ fun RegisterPage(navController: NavController) {
                             )
                         )
                         Spacer(modifier = Modifier.padding(20.dp))
+                        OutlinedTextField(
+                            value = nameValue.value,
+                            onValueChange = { nameValue.value = it },
+                            placeholder = { Text(text = "Name", color = Color.Gray) },
+                            singleLine = true,
+                            colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                            modifier = Modifier
+                                .fillMaxWidth(0.8f)
+                                .border(
+                                    width = 2.dp,
+                                    color = Color.Green,
+                                    shape = RoundedCornerShape(8.dp)
+                                ),
+                        )
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             OutlinedTextField(
-                                value = nameValue.value,
-                                onValueChange = { nameValue.value = it },
+                                value = userNameValue.value,
+                                onValueChange = { userNameValue.value = it },
                                 //label = { Text(text = "Name" , color = Color.Gray) },
-                                placeholder = { Text(text = "Name", color = Color.Gray) },
+                                placeholder = { Text(text = "Username", color = Color.Gray) },
                                 singleLine = true,
                                 colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
                                 modifier = Modifier
@@ -213,11 +225,33 @@ fun RegisterPage(navController: NavController) {
                                 visualTransformation = if (confirmPasswordVisibility.value) VisualTransformation.None
                                 else PasswordVisualTransformation()
                             )
-                            val localContext = LocalContext.current
                             Spacer(modifier = Modifier.padding(10.dp))
                             Button(
                                 onClick ={
-
+                                    if(
+                                         nameValue.value.isEmpty() ||
+                                         userNameValue.value.isEmpty() ||
+                                         emailValue.value.isEmpty() ||
+                                         phoneValue.value.isEmpty() ||
+                                         passwordValue.value.isEmpty()
+                                     ){
+                                         Toast.makeText(context , "All Fields are Required", Toast.LENGTH_LONG).show()
+                                     }
+                                    else if(passwordValue.value != confirmPasswordValue.value){
+                                        Toast.makeText(context , "Both Password are Not been found", Toast.LENGTH_LONG).show()
+                                    }
+                                    else{
+                                        signInChecker(
+                                            context = context,
+                                            dbConnect = dbConnect,
+                                            name = nameValue.value,
+                                            userName = userNameValue.value,
+                                            emailId = emailValue.value,
+                                            phoneNumber = phoneValue.value,
+                                            passWord = passwordValue.value,
+                                            navController = navController
+                                        )
+                                    }
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth(0.8f)
@@ -235,7 +269,7 @@ fun RegisterPage(navController: NavController) {
                             ){
                                 Text(
                                     text = "Login Instead",
-                                    color = Color(235, 235, 245).copy(0.6f),
+                                    color = Color.Black,
 
                                 )
                             }
@@ -256,6 +290,6 @@ fun RegisterPage(navController: NavController) {
 fun Register() {
     NFTMarketplaceTheme {
         val navController = rememberNavController()
-        RegisterPage(navController)
+        RegisterPage(MainActivity().context, navController, FirebaseDatabase.getInstance())
     }
 }

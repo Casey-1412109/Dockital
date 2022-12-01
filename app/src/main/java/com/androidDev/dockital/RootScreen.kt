@@ -65,7 +65,7 @@ fun RootScreen(mainViewModel: mainViewModel, context: Context, dbConnect: Fireba
             }
 
             composable(NavigationItem.Add.route) {
-                MintPush()
+                MintPush(context = context, dbConnect = dbConnect)
             }
 
             composable(NavigationItem.Search.route) {

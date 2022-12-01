@@ -13,7 +13,8 @@
         "Form Validation": "https://stackoverflow.com/questions/68376797/how-to-use-a-condition-in-a-mutablestate-in-jetpack-compose",
         "Convert Uri to Media": "https://stackoverflow.com/questions/2975197/convert-file-uri-to-file-in-android/68792304#68792304",
         "Shared Variable" : "https://stackoverflow.com/questions/49827682/way-to-share-data-between-classes-in-kotlin",
-        "Stop Iterator in Kotlin" : "https://stackoverflow.com/questions/32540947/break-and-continue-in-foreach-in-kotlin"
+        "Stop Iterator in Kotlin" : "https://stackoverflow.com/questions/32540947/break-and-continue-in-foreach-in-kotlin",
+        "Removing null exception while connecting to database" : "https://stackoverflow.com/questions/68491774/nullpointerexception-null-cannot-be-cast-to-non-null-type-error-in-kotlin"
     },
 
     "Google Developer": {

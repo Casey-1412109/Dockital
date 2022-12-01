@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 class MainActivity : ComponentActivity() {
     private val mainViewModel: mainViewModel by viewModels()
     val context: Context = this
-    val dbConnect = FirebaseDatabase.getInstance()
+    private val dbConnect = FirebaseDatabase.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     RootScreen(mainViewModel = this.mainViewModel,context = this.context , dbConnect = this.dbConnect)
+                    //update userStore index in userList in database when user is deleted
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.androidDev.dockital.screens.postNFT
 
+import android.content.Context
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -31,17 +32,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.R
+import com.androidDev.dockital.nftPoster
+import com.google.firebase.database.FirebaseDatabase
+
 
 @Preview(showBackground = true)
 @Composable
 fun MintPushPreview(){
-    MintPush()
+    MintPush(MainActivity().context, FirebaseDatabase.getInstance())
 }
 
 @Composable
-fun MintPush(){
-    val localContext = LocalContext.current
+fun MintPush(context: Context, dbConnect: FirebaseDatabase){
     var buttonEnabled = remember {
         mutableStateOf(true)
     }
@@ -172,7 +176,7 @@ fun MintPush(){
                 Image(
                     painter = rememberAsyncImagePainter(
                         ImageRequest
-                            .Builder(localContext)
+                            .Builder(context)
                             .data(data = imageUri.value)
                             .build()
                     ),
@@ -280,12 +284,22 @@ fun MintPush(){
         Button(
             enabled = buttonEnabled.value,
             onClick =  {
-                if(nameRem.value.isEmpty() || Uri.EMPTY.equals(imageUri) || priceRem.value.isEmpty()){
-                    Toast.makeText(localContext, "Fill All Fields", Toast.LENGTH_SHORT).show()
+                if(
+                    nameRem.value.isEmpty() ||
+                    Uri.EMPTY.equals(imageUri) ||
+                    priceRem.value.isEmpty()
+                ){
+                    Toast.makeText(context, "Fill All Fields", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    TODO("Change the Below String ")
-                    Toast.makeText(localContext, "Ujjwal Wait For Next Push", Toast.LENGTH_SHORT).show()
+                    nftPoster(
+                        context = context,
+                        dbConnect = dbConnect,
+                        bitmap = imageUri.value,
+                        name = nameRem.value,
+                        price = priceRem.value,
+                        description = descriptionRem.value
+                    )
                 }
 
             },
@@ -300,21 +314,6 @@ fun MintPush(){
                 text = "Mint",
                 color = Color.White,
                 textAlign = TextAlign.Center
-            )
-        }
-        Spacer(
-            modifier = Modifier.padding(top = 3.dp)
-        )
-        Row {
-            Text(
-                text = "*",
-                color = Color.Red,
-                fontSize = 15.sp
-            )
-            Text(
-                text = "Required Fields",
-                color = Color.White,
-                fontSize = 15.sp
             )
         }
         Spacer(

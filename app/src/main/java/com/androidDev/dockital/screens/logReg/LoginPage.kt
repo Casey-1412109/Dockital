@@ -34,13 +34,13 @@
     import com.androidDev.dockital.MainActivity
     import com.androidDev.dockital.R
     import com.androidDev.dockital.screens.home.HomeScreen
-    import com.androidDev.dockital.signInChecker
+    import com.androidDev.dockital.logInChecker
     import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
     import com.google.firebase.database.FirebaseDatabase
 
-    fun getAndroidId(context: Context){
-        Secure.getString(context.contentResolver, Secure.ANDROID_ID)
-    }
+//    fun getAndroidId(context: Context){
+//        Secure.getString(context.contentResolver, Secure.ANDROID_ID)
+//    }
     @Composable
     fun LoginScreen(dbConnect: FirebaseDatabase, context: Context){
         val navController = rememberNavController()
@@ -53,7 +53,7 @@
             }
             composable("registerScreen"
               ) {
-                RegisterPage(navController = navController)
+                RegisterPage(context = context, navController = navController, dbConnect = dbConnect)
             }
             composable("Home"){
                 HomeScreen()
@@ -177,7 +177,7 @@
                                       ).show()
                                     }
                                     else{
-                                        signInChecker(
+                                        logInChecker(
                                             context = context,
                                             dbConnect = dbConnect,
                                             emailId = emailValue.value,
@@ -192,7 +192,7 @@
                                     .padding(50.dp, 0.dp, 0.dp, 0.dp)
                             ) {
                                 Text(
-                                    text = "Sign In",
+                                    text = "Log In",
                                     fontSize = 20.sp,
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -210,7 +210,7 @@
                             ){
                                 Text(
                                     text = "Create An Account",
-                                    color = Color.Gray,
+                                    color = Color.Black,
                                     modifier = Modifier
                                         .padding(55.dp, 0.dp, 0.dp, 0.dp)
                                 )

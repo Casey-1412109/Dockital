@@ -36,9 +36,7 @@ fun RootScreen(mainViewModel: mainViewModel, context: Context, dbConnect: Fireba
     var tempAuth : Boolean = true
     Scaffold(
         bottomBar = {
-            if (!tempAuth) {
-                BottomBar(navController = navigationController)
-            }
+            BottomBar(navController = navigationController)
 
         }
     ) {
@@ -48,13 +46,6 @@ fun RootScreen(mainViewModel: mainViewModel, context: Context, dbConnect: Fireba
             } else {
                 NavigationItem.Home.route
             }) {
-//            composable(NavigationItem.Login.route) {
-//                OnBoardingScreen(
-//                    navigateAction = {
-//                        navigationController.navigate(NavigationItem.Home.route)
-//                    }
-//                )
-//            }
 
             composable(NavigationItem.Home.route) {
                 HomeScreen()

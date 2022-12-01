@@ -46,10 +46,7 @@ fun logInChecker(context: Context, dbConnect:FirebaseDatabase, userName: String,
                     }.addOnFailureListener{
                         Toast.makeText(context, "Unable to Fetch Data. Try Again", Toast.LENGTH_LONG).show()
                     }
-                }
-                else{
-                    Toast.makeText(context, "No User Found, Please Sign In", Toast.LENGTH_LONG).show()
-                    return@forEach
+                    return@addOnSuccessListener
                 }
             }
         }
@@ -100,7 +97,7 @@ fun signInChecker(context: Context, dbConnect:FirebaseDatabase, name: String, us
 }
 
 fun nftPoster(context: Context, dbConnect: FirebaseDatabase, bitmap: Uri?, name:String , price: String, description : String ){
-    
+
 }
 
 

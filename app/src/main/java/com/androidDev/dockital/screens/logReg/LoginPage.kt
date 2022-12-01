@@ -65,7 +65,7 @@
     fun LoginPage(navController: NavController, context: Context, dbConnect: FirebaseDatabase) {
 //        var progressStart = CircularProgressIndicator()
         val image = painterResource(id = R.drawable.logie)
-        val emailValue = remember { mutableStateOf("") }
+        val userName = remember { mutableStateOf("") }
         val passwordValue = remember { mutableStateOf("") }
         val passwordVisibility = remember { mutableStateOf(false) }
         val focusRequester = remember { FocusRequester() }
@@ -124,8 +124,8 @@
                         ) {
 
                             OutlinedTextField(
-                                value = emailValue.value,
-                                onValueChange = { emailValue.value = it },
+                                value = userName.value,
+                                onValueChange = { userName.value = it },
                                 placeholder = { Text(text = "Email Address",color = Color.Gray) },
                                 singleLine = true,
                                 modifier = Modifier
@@ -169,7 +169,7 @@
                             Spacer(modifier = Modifier.padding(10.dp))
                             Button(
                                 onClick = {
-                                    if(emailValue.value == "" || passwordValue.value == "") {
+                                    if(userName.value == "" || passwordValue.value == "") {
                                       Toast.makeText(
                                           context,
                                           "All Fields are Required",
@@ -180,7 +180,7 @@
                                         logInChecker(
                                             context = context,
                                             dbConnect = dbConnect,
-                                            emailId = emailValue.value,
+                                            userName = userName.value,
                                             passWord = passwordValue.value,
                                             navController = navController
                                         )

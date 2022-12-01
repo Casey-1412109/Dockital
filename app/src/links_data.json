@@ -14,7 +14,8 @@
         "Convert Uri to Media": "https://stackoverflow.com/questions/2975197/convert-file-uri-to-file-in-android/68792304#68792304",
         "Shared Variable" : "https://stackoverflow.com/questions/49827682/way-to-share-data-between-classes-in-kotlin",
         "Stop Iterator in Kotlin" : "https://stackoverflow.com/questions/32540947/break-and-continue-in-foreach-in-kotlin",
-        "Removing null exception while connecting to database" : "https://stackoverflow.com/questions/68491774/nullpointerexception-null-cannot-be-cast-to-non-null-type-error-in-kotlin"
+        "Removing null exception while connecting to database" : "https://stackoverflow.com/questions/68491774/nullpointerexception-null-cannot-be-cast-to-non-null-type-error-in-kotlin",
+        "Adding New Child to Firebase Array" : "https://stackoverflow.com/questions/40013089/how-to-add-new-child-in-firebase-database-android"
     },
 
     "Google Developer": {
@@ -29,11 +30,12 @@
         "Alignment": "https://developer.android.com/jetpack/compose/layouts/alignment-lines",
         "Firebase Structuring": "https://firebase.flutter.dev/docs/database/structure-data",
         "SQLite" : "https://developer.android.com/training/data-storage/sqlite#kotlin",
-        "Android Application Enviromental Context" : "https://gist.github.com/paraya3636/bf8108a75eb49323e56c0c90dd0747e0",
+        "Android Application Environmental Context" : "https://gist.github.com/paraya3636/bf8108a75eb49323e56c0c90dd0747e0",
         "MutableState/mutableStateOf" : [
             "https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState",
             "https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary#mutableStateOf(kotlin.Any,androidx.compose.runtime.SnapshotMutationPolicy)"
-        ]
+        ],
+        "Firebase Read And Write" : "https://firebase.google.com/docs/database/android/read-and-write"
     },
 
     "Other": {

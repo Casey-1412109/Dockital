@@ -88,8 +88,6 @@ fun MainProfile(context : Context , navController: NavController, dbConnect: Fir
                     .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
-                // User's image
                 Image(
                     painter = painterResource(id =R.drawable.insan),
                     contentDescription = null,

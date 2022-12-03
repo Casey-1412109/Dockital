@@ -77,6 +77,7 @@ fun logInChecker(
                                 }
                                 navController.popBackStack()
                                 navController.navigate("Home")
+                                navController.navigateUp()
                                 Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
                             }
                             else{

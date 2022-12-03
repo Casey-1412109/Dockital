@@ -58,12 +58,12 @@ fun RootScreen(
             startDestination = if (localStorageRef.all.isEmpty()) { //############################ Account Auth
                 NavigationItem.Login.route
             } else {
-                RootScreen(
-                    context = context,
-                    dbConnect = dbConnect,
-                    localStorageRef = localStorageRef,
-                    dbStorageConnect = dbStorageConnect
-                )
+//                RootScreen(
+//                    context = context,
+//                    dbConnect = dbConnect,
+//                    localStorageRef = localStorageRef,
+//                    dbStorageConnect = dbStorageConnect
+//                )
                 NavigationItem.Home.route
             }) {
 

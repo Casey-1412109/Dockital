@@ -1,6 +1,7 @@
 package com.androidDev.dockital.screens.postNFT
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -23,29 +24,41 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.R
-import com.androidDev.dockital.nftPoster
+import com.androidDev.dockital.navigations.NavigationItem
+import com.androidDev.dockital.nftMinter
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 
 
 @Preview(showBackground = true)
 @Composable
 fun MintPushPreview(){
-    MintPush(MainActivity().context, FirebaseDatabase.getInstance())
+    MintPush(
+        context = MainActivity().context,
+        navController = rememberNavController(),
+        dbConnect = FirebaseDatabase.getInstance(),
+        localStorageRef = MainActivity().getSharedPreferences(
+            " ",
+            Context.MODE_PRIVATE
+        ),
+        dbStorageConnect = FirebaseStorage.getInstance()
+    )
 }
 
 @Composable
-fun MintPush(context: Context, dbConnect: FirebaseDatabase){
+fun MintPush(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage){
     var buttonEnabled = remember {
         mutableStateOf(true)
     }
@@ -57,13 +70,13 @@ fun MintPush(context: Context, dbConnect: FirebaseDatabase){
             uri: Uri? -> imageUri.value = uri
     }
     var descriptionRem = remember{
-        mutableStateOf<String>("")
+        mutableStateOf("")
     }
     var priceRem = remember{
-        mutableStateOf<String>("")
+        mutableStateOf("")
     }
     var nameRem = remember {
-        mutableStateOf<String>("")
+        mutableStateOf("")
     }
     var borderStrokeMint = BorderStroke(2.dp, Color.White)
     var scrollState = rememberScrollState()
@@ -80,8 +93,6 @@ fun MintPush(context: Context, dbConnect: FirebaseDatabase){
             .padding(15.dp)
             .scrollable(state = scrollState, orientation = Orientation.Vertical)
             ){
-//        add Logo if Filling Empty
-//        Image(painter = , contentDescription = )
 
         Spacer(
             modifier = Modifier.padding(top = 11.dp)
@@ -173,7 +184,14 @@ fun MintPush(context: Context, dbConnect: FirebaseDatabase){
                 }
             }
             imageUri?.let {
+//                var source = ImageDecoder.createSource(context.contentResolver, it)
+
+//                Image(
+//                    bitmap = ,
+//                    contentDescription =
+//                )
                 Image(
+                    
                     painter = rememberAsyncImagePainter(
                         ImageRequest
                             .Builder(context)
@@ -292,13 +310,14 @@ fun MintPush(context: Context, dbConnect: FirebaseDatabase){
                     Toast.makeText(context, "Fill All Fields", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    nftPoster(
+                    nftMinter(
                         context = context,
                         dbConnect = dbConnect,
-                        bitmap = imageUri.value,
+                        uri = imageUri.value,
                         name = nameRem.value,
                         price = priceRem.value,
-                        description = descriptionRem.value
+                        description = descriptionRem.value,
+                        dbStorageConnect = dbStorageConnect
                     )
                 }
 

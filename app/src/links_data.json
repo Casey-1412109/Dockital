@@ -15,7 +15,8 @@
         "Shared Variable" : "https://stackoverflow.com/questions/49827682/way-to-share-data-between-classes-in-kotlin",
         "Stop Iterator in Kotlin" : "https://stackoverflow.com/questions/32540947/break-and-continue-in-foreach-in-kotlin",
         "Removing null exception while connecting to database" : "https://stackoverflow.com/questions/68491774/nullpointerexception-null-cannot-be-cast-to-non-null-type-error-in-kotlin",
-        "Adding New Child to Firebase Array" : "https://stackoverflow.com/questions/40013089/how-to-add-new-child-in-firebase-database-android"
+        "Adding New Child to Firebase Array" : "https://stackoverflow.com/questions/40013089/how-to-add-new-child-in-firebase-database-android",
+        "Invoking Problem in SharedPreferences" : "https://stackoverflow.com/questions/64782178/attempt-to-invoke-virtual-method-android-content-sharedpreferences-on-a-null-o"
     },
 
     "Google Developer": {
@@ -35,7 +36,8 @@
             "https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState",
             "https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary#mutableStateOf(kotlin.Any,androidx.compose.runtime.SnapshotMutationPolicy)"
         ],
-        "Firebase Read And Write" : "https://firebase.google.com/docs/database/android/read-and-write"
+        "Firebase Read And Write" : "https://firebase.google.com/docs/database/android/read-and-write",
+        "FirebaseStorage Uploading Docs" : "https://firebase.google.com/docs/storage/android/upload-files"
     },
 
     "Other": {
@@ -45,6 +47,13 @@
         "Link 4" : "https://www.howtodoandroid.com/pick-image-from-gallery-jetpack-compose/",
         "Link 5" : "https://medium.com/@daniatitienei/navigate-with-arguments-in-jetpack-compose-90846d70bb7f"
     },
+
+    "Future Feature" : [
+        "Optimize Performance Using Multi Threading",
+        "Editable Description b y Current Owner",
+        "Add Support of Profile Editing In App",
+        "Optimizing navController"
+    ],
     "FireBase DB Structure" : {
         "devices" : [
             {"temp" :  "id"}

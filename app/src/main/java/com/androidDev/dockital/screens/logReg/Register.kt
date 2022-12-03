@@ -1,6 +1,7 @@
 package com.androidDev.dockital.screens.logReg
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -39,11 +40,12 @@ import com.androidDev.dockital.R
 import com.androidDev.dockital.signInChecker
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RegisterPage(context: Context, navController: NavController, dbConnect : FirebaseDatabase) {
+fun RegisterPage(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
     val ima = painterResource(id = R.drawable.register_page)
     val nameValue = remember { mutableStateOf("") }
     val userNameValue = remember { mutableStateOf("") }
@@ -318,7 +320,15 @@ fun RegisterPage(context: Context, navController: NavController, dbConnect : Fir
 @Preview
 fun Register() {
     NFTMarketplaceTheme {
-        val navController = rememberNavController()
-        RegisterPage(MainActivity().context, navController, FirebaseDatabase.getInstance())
+        RegisterPage(
+            context = MainActivity().context,
+            navController = rememberNavController(),
+            dbConnect = FirebaseDatabase.getInstance(),
+            localStorageRef = MainActivity().getSharedPreferences(
+                " ",
+                Context.MODE_PRIVATE
+            ),
+            dbStorageConnect = FirebaseStorage.getInstance()
+        )
     }
 }

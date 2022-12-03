@@ -1,24 +1,16 @@
 package com.androidDev.dockital
 
 import android.annotation.SuppressLint
-import android.content.ContentResolver
 import android.content.Context
-import android.database.Cursor
-import android.net.MacAddress
-import android.net.wifi.WifiManager
-import android.provider.Settings.Secure
-import android.widget.Toast
+import android.content.SharedPreferences
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.navigations.BottomBar
 import com.androidDev.dockital.navigations.NavigationItem
-import com.androidDev.dockital.onBoarding.OnBoardingScreen
-import com.androidDev.dockital.screens.searchNav.mainViewModel
 import com.androidDev.dockital.screens.searchNav.SearchScreen
 import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.logReg.LoginScreen
@@ -27,58 +19,109 @@ import com.androidDev.dockital.screens.profileNav.MainProfile
 import com.androidDev.dockital.screens.statsNav.StatsScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.database.FirebaseDatabase
-
-
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun RootScreen(mainViewModel: mainViewModel, context: Context, dbConnect: FirebaseDatabase) {
-    val navigationController = rememberNavController()
-    var tempAuth : Boolean = true
-    Scaffold(
-        bottomBar = {
-            BottomBar(navController = navigationController)
-
-        }
-    ) {
-        NavHost(navController = navigationController,
-            startDestination =if (tempAuth) {
-                NavigationItem.Login.route
-            } else {
-                NavigationItem.Home.route
-            }) {
-
-            composable(NavigationItem.Home.route) {
-                HomeScreen()
-            }
-
-            composable(NavigationItem.Stats.route) {
-                StatsScreen()
-            }
-
-            composable(NavigationItem.Add.route) {
-                MintPush(context = context, dbConnect = dbConnect)
-            }
-
-            composable(NavigationItem.Search.route) {
-                //Text("Search")
-                SearchScreen()
-            }
-
-            composable(NavigationItem.Profile.route) {
-                MainProfile(navController = navigationController)
-            }
-            composable(NavigationItem.Login.route) {
-                LoginScreen(dbConnect = dbConnect, context = context)
-            }
-        }
-
-    }
-}
+import com.google.firebase.storage.FirebaseStorage
 
 @Preview
 @Composable
 fun RootScreenPreview() {
     NFTMarketplaceTheme {
-        RootScreen(mainViewModel = mainViewModel(), context = MainActivity(), dbConnect =  FirebaseDatabase.getInstance())
+        RootScreen(
+//            mainViewModel = mainViewModel(),
+            context = MainActivity(),
+            dbConnect =  FirebaseDatabase.getInstance(),
+            dbStorageConnect = FirebaseStorage.getInstance(),
+            localStorageRef = MainActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+        )
+    }
+}
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@Composable
+fun RootScreen(
+//    mainViewModel: mainViewModel,
+    context: Context,
+    dbConnect: FirebaseDatabase,
+    dbStorageConnect: FirebaseStorage,
+    localStorageRef: SharedPreferences
+) {
+    val navController = rememberNavController()
+
+    Scaffold(
+        bottomBar = {
+            if(localStorageRef.all.isNotEmpty()){
+                BottomBar(navController = navController)
+            }
+
+        }
+    ) {
+        NavHost(navController = navController,
+            startDestination = if (localStorageRef.all.isEmpty()) { //############################ Account Auth
+                NavigationItem.Login.route
+            } else {
+                RootScreen(
+                    context = context,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+                NavigationItem.Home.route
+            }) {
+
+            composable(NavigationItem.Home.route) {
+                HomeScreen(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
+            composable(NavigationItem.Stats.route) {
+                StatsScreen(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
+            composable(NavigationItem.Add.route) {
+                MintPush(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
+            composable(NavigationItem.Search.route) {
+                SearchScreen(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
+            composable(NavigationItem.Profile.route) {
+                MainProfile(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
+            composable(NavigationItem.Login.route) {
+                LoginScreen(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 package com.androidDev.dockital.screens.statsNav
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,20 +23,33 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.components.customTabOffset
 import com.androidDev.dockital.models.rankings
+import com.androidDev.dockital.navigations.NavigationItem
 import com.androidDev.dockital.screens.searchNav.DetailsScreen
 import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.searchNav.DetailScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 
 @Preview
 @Composable
 fun StatsScreenPreview(){
-    StatsScreen()
+    StatsScreen(
+        context = MainActivity().context,
+        navController = rememberNavController(),
+        dbConnect = FirebaseDatabase.getInstance(),
+        localStorageRef = MainActivity().getSharedPreferences(
+            " ",
+            Context.MODE_PRIVATE
+        ),
+        dbStorageConnect = FirebaseStorage.getInstance()
+    )
 }
 @Composable
-fun StatsScreen(){
+fun StatsScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "mainStateScreen") {
         composable("mainStateScreen") {
@@ -59,7 +74,13 @@ fun StatsScreen(){
             }
         }
         composable("Home"){
-            HomeScreen()
+            HomeScreen(
+                context = context,
+                navController = navController,
+                dbConnect = dbConnect,
+                localStorageRef = localStorageRef,
+                dbStorageConnect = dbStorageConnect
+            )
         }
 
     }

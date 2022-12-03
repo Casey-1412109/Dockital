@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Dockital</string>
-    <string name="app_label">jj</string>
-    <string name="search_hint">jj1</string>
+    <string name="app_label">Dockital</string>
+    <string name="search_hint">Doc</string>
+<!--    Local Storage Strings-->
+    <string name="name"></string>
+    <string name="userName"></string>
+    <string name="passWord"></string>
+    <string name="metaMaskId"></string>
+    <string name="phoneNumber"></string>
+    <string name="emailId"></string>
 </resources>

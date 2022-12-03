@@ -1,6 +1,7 @@
     package com.androidDev.dockital.screens.logReg
 
     import android.content.Context
+    import android.content.SharedPreferences
     import android.widget.Toast
     import androidx.compose.foundation.*
     import androidx.compose.foundation.gestures.Orientation
@@ -35,32 +36,52 @@
     import androidx.navigation.compose.rememberNavController
     import com.androidDev.dockital.MainActivity
     import com.androidDev.dockital.R
-    import com.androidDev.dockital.screens.home.HomeScreen
     import com.androidDev.dockital.logInChecker
+    import com.androidDev.dockital.navigations.NavigationItem
+    import com.androidDev.dockital.screens.home.HomeScreen
     import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
     import com.google.firebase.database.FirebaseDatabase
+    import com.google.firebase.storage.FirebaseStorage
     import kotlinx.coroutines.launch
 
-    //    fun getAndroidId(context: Context){
-//        Secure.getString(context.contentResolver, Secure.ANDROID_ID)
-//    }
-
     @Composable
-    fun LoginScreen(dbConnect: FirebaseDatabase, context: Context){
+    fun LoginScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage){
+//        if(localStorageRef.all.isEmpty()){
+//            localStorageRef.edit().clear().commit()
+//            navController.navigate(NavigationItem.Login.route)
+//        }
         val navController = rememberNavController()
         NavHost(
             navController = navController,
             startDestination = "LoginScreen"
         ) {
             composable("LoginScreen") {
-                LoginPage(navController = navController, context = context, dbConnect = dbConnect)
+                LoginPage(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
             }
             composable("registerScreen"
               ) {
-                RegisterPage(context = context, navController = navController, dbConnect = dbConnect)
+                RegisterPage(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
             }
             composable("Home"){
-                HomeScreen()
+                HomeScreen(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
             }
 
         }
@@ -68,8 +89,7 @@
 
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
-    fun LoginPage(navController: NavController, context: Context, dbConnect: FirebaseDatabase) {
-//        var progressStart = CircularProgressIndicator()
+    fun LoginPage(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
         val image = painterResource(id = R.drawable.logie)
         val userName = remember { mutableStateOf("") }
         val passwordValue = remember { mutableStateOf("") }
@@ -149,7 +169,6 @@
                                 colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
                                 keyboardActions = KeyboardActions { focusRequester.requestFocus() }
                             )
-
                             OutlinedTextField(
                                 value = passwordValue.value,
                                 onValueChange = { passwordValue.value = it },
@@ -197,7 +216,8 @@
                                             dbConnect = dbConnect,
                                             userName = userName.value,
                                             passWord = passwordValue.value,
-                                            navController = navController
+                                            navController = navController,
+                                            localStorageRef = localStorageRef
                                         )
                                     }
                                 },
@@ -245,9 +265,16 @@
     @Preview
     fun Login() {
         NFTMarketplaceTheme {
-            val navController = rememberNavController()
-            val dbTemp = FirebaseDatabase.getInstance()
-            LoginPage(navController, MainActivity(), dbTemp)
+            LoginPage(
+                context = MainActivity().context,
+                navController = rememberNavController(),
+                dbConnect = FirebaseDatabase.getInstance(),
+                localStorageRef = MainActivity().getSharedPreferences(
+                    " ",
+                    Context.MODE_PRIVATE
+                ),
+                dbStorageConnect = FirebaseStorage.getInstance()
+            )
         }
     }
 

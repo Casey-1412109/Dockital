@@ -1,5 +1,7 @@
 package com.androidDev.dockital.screens.searchNav
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -27,16 +29,34 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.models.rankings
+import com.androidDev.dockital.navigations.NavigationItem
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 import kotlin.collections.ArrayList
 
+@Preview
 @Composable
-fun SearchScreen() {
+fun searchScreenPreview(){
+    SearchScreen(
+        context = MainActivity().context,
+        navController = rememberNavController(),
+        dbConnect = FirebaseDatabase.getInstance(),
+        localStorageRef = MainActivity().getSharedPreferences(
+            " ",
+            Context.MODE_PRIVATE
+        ),
+        dbStorageConnect = FirebaseStorage.getInstance()
+    )
+}
+@Composable
+fun SearchScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
-            MainScreen(navController = navController)
+            MainStatsScreen(navController = navController)
         }
         composable(
             "details/{countryName}",
@@ -55,7 +75,7 @@ fun SearchScreen() {
 }
 
 @Composable
-fun MainScreen(navController: NavController ) {
+fun MainStatsScreen(navController: NavController ) {
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     Column {
         SearchView(textState)
@@ -63,12 +83,12 @@ fun MainScreen(navController: NavController ) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-    val navController = rememberNavController()
-    MainScreen(navController = navController)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun MainScreenPreview() {
+//    val navController = rememberNavController()
+//    MainStatsScreen(navController = navController)
+//}
 
 @Composable
 fun SearchView(state: MutableState<TextFieldValue>) {
@@ -122,12 +142,12 @@ fun SearchView(state: MutableState<TextFieldValue>) {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SearchViewPreview() {
-    val textState = remember { mutableStateOf(TextFieldValue("")) }
-    SearchView(textState)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun SearchViewPreview() {
+//    val textState = remember { mutableStateOf(TextFieldValue("")) }
+//    SearchView(textState)
+//}
 
 @Composable
 fun SearchList(navController: NavController, state: MutableState<TextFieldValue>) {
@@ -154,16 +174,10 @@ fun SearchList(navController: NavController, state: MutableState<TextFieldValue>
                 searchText = filteredsearch,
                 onItemClick = { selectedsearch ->
                     navController.navigate("details/$selectedsearch") {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
                         popUpTo("main") {
                             saveState = true
                         }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
                         launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
                         restoreState = true
                     }
                 }
@@ -172,13 +186,13 @@ fun SearchList(navController: NavController, state: MutableState<TextFieldValue>
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SearchListPreview() {
-    val navController = rememberNavController()
-    val textState = remember { mutableStateOf(TextFieldValue("")) }
-    SearchList(navController = navController, state = textState)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun SearchListPreview() {
+//    val navController = rememberNavController()
+//    val textState = remember { mutableStateOf(TextFieldValue("")) }
+//    SearchList(navController = navController, state = textState)
+//}
 
 @Composable
 fun SearchListItem(searchText: String, onItemClick: (String) -> Unit) {
@@ -194,13 +208,13 @@ fun SearchListItem(searchText: String, onItemClick: (String) -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SearchListItemPreview() {
-     //searchListItem(searchText = "Azumi  \uD83C\uDDEE\uD83C\uDDF3", onItemClick = { })
-    // if want the flag
-     SearchListItem(searchText = "Azumi", onItemClick = { })
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun SearchListItemPreview() {
+//     //searchListItem(searchText = "Azumi  \uD83C\uDDEE\uD83C\uDDF3", onItemClick = { })
+//    // if want the flag
+//     SearchListItem(searchText = "Azumi", onItemClick = { })
+//}
 
 @Composable
 fun TopBar() {
@@ -211,9 +225,9 @@ fun TopBar() {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun TopBarPreview() {
-    TopBar()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TopBarPreview() {
+//    TopBar()
+//}
 

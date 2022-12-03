@@ -25,6 +25,7 @@ import com.androidDev.dockital.components.customTabOffset
 import com.androidDev.dockital.models.rankings
 import com.androidDev.dockital.screens.searchNav.DetailsScreen
 import com.androidDev.dockital.screens.home.HomeScreen
+import com.androidDev.dockital.screens.searchNav.DetailScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 
 @Preview
@@ -48,10 +49,13 @@ fun StatsScreen(){
         {backStackEntery ->
             val nftName = backStackEntery.arguments?.getString("NftName")
             nftName?.let {
-                DetailsScreen(nftName = it, navControllerDetails = {
+//                DetailsScreen(nftName = it, navControllerDetails = {
+//                    navController.navigate("mainStateScreen")
+//                    }
+//                )
+                DetailScreen(nftName = it, navControllerDetails = {
                     navController.navigate("mainStateScreen")
-                    }
-                )
+                })
             }
         }
         composable("Home"){

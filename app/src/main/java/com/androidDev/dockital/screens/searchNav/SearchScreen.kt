@@ -31,7 +31,6 @@ import com.androidDev.dockital.models.rankings
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 @Composable
 fun SearchScreen() {
     val navController = rememberNavController()
@@ -44,7 +43,10 @@ fun SearchScreen() {
             arguments = listOf(navArgument("countryName") { type = NavType.StringType })
         ) { backStackEntry ->
             backStackEntry.arguments?.getString("countryName")?.let { nftName ->
-                DetailsScreen(nftName = nftName, navControllerDetails = {
+//                DetailsScreen(nftName = nftName, navControllerDetails = {
+//                    navController.navigate("main")
+//                })
+                DetailScreen(nftName = nftName, navControllerDetails = {
                     navController.navigate("main")
                 })
             }

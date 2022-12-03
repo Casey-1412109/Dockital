@@ -1,14 +1,13 @@
     package com.androidDev.dockital.screens.logReg
 
     import android.content.Context
-    import android.content.SharedPreferences
+    import android.provider.Settings.Secure
     import android.widget.Toast
-    import androidx.compose.foundation.*
-    import androidx.compose.foundation.gestures.Orientation
-    import androidx.compose.foundation.gestures.scrollable
+    import androidx.compose.foundation.Image
+    import androidx.compose.foundation.background
+    import androidx.compose.foundation.border
     import androidx.compose.foundation.layout.*
     import androidx.compose.foundation.lazy.LazyColumn
-    import androidx.compose.foundation.relocation.BringIntoViewRequester
     import androidx.compose.foundation.shape.RoundedCornerShape
     import androidx.compose.foundation.text.KeyboardActions
     import androidx.compose.material.*
@@ -17,12 +16,10 @@
     import androidx.compose.runtime.Composable
     import androidx.compose.runtime.mutableStateOf
     import androidx.compose.runtime.remember
-    import androidx.compose.runtime.rememberCoroutineScope
     import androidx.compose.ui.Alignment
     import androidx.compose.ui.Modifier
     import androidx.compose.ui.draw.clip
     import androidx.compose.ui.focus.FocusRequester
-    import androidx.compose.ui.focus.onFocusEvent
     import androidx.compose.ui.graphics.Color
     import androidx.compose.ui.res.painterResource
     import androidx.compose.ui.text.TextStyle
@@ -36,79 +33,52 @@
     import androidx.navigation.compose.rememberNavController
     import com.androidDev.dockital.MainActivity
     import com.androidDev.dockital.R
-    import com.androidDev.dockital.logInChecker
-    import com.androidDev.dockital.navigations.NavigationItem
     import com.androidDev.dockital.screens.home.HomeScreen
+    import com.androidDev.dockital.logInChecker
     import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
     import com.google.firebase.database.FirebaseDatabase
-    import com.google.firebase.storage.FirebaseStorage
-    import kotlinx.coroutines.launch
 
+//    fun getAndroidId(context: Context){
+//        Secure.getString(context.contentResolver, Secure.ANDROID_ID)
+//    }
     @Composable
-    fun LoginScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage){
-//        if(localStorageRef.all.isEmpty()){
-//            localStorageRef.edit().clear().commit()
-//            navController.navigate(NavigationItem.Login.route)
-//        }
+    fun LoginScreen(dbConnect: FirebaseDatabase, context: Context){
         val navController = rememberNavController()
         NavHost(
             navController = navController,
             startDestination = "LoginScreen"
         ) {
             composable("LoginScreen") {
-                LoginPage(
-                    context = context,
-                    navController = navController,
-                    dbConnect = dbConnect,
-                    localStorageRef = localStorageRef,
-                    dbStorageConnect = dbStorageConnect
-                )
+                LoginPage(navController = navController, context = context, dbConnect = dbConnect)
             }
             composable("registerScreen"
               ) {
-                RegisterPage(
-                    context = context,
-                    navController = navController,
-                    dbConnect = dbConnect,
-                    localStorageRef = localStorageRef,
-                    dbStorageConnect = dbStorageConnect
-                )
+                RegisterPage(context = context, navController = navController, dbConnect = dbConnect)
             }
             composable("Home"){
-                HomeScreen(
-                    context = context,
-                    navController = navController,
-                    dbConnect = dbConnect,
-                    localStorageRef = localStorageRef,
-                    dbStorageConnect = dbStorageConnect
-                )
+                HomeScreen()
             }
 
         }
     }
-
-    @OptIn(ExperimentalFoundationApi::class)
     @Composable
-    fun LoginPage(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
+    fun LoginPage(navController: NavController, context: Context, dbConnect: FirebaseDatabase) {
+//        var progressStart = CircularProgressIndicator()
         val image = painterResource(id = R.drawable.logie)
         val userName = remember { mutableStateOf("") }
         val passwordValue = remember { mutableStateOf("") }
         val passwordVisibility = remember { mutableStateOf(false) }
         val focusRequester = remember { FocusRequester() }
-        val bringIntoViewRequester = remember { BringIntoViewRequester() }
-        val coroutineScope = rememberCoroutineScope()
 
         Box(
             modifier = Modifier
                 .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter,
         ) {
-
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White)
-                    .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical),
+                    .background(Color.White),
                 contentAlignment = Alignment.TopCenter
             ) {
                 Image(
@@ -169,6 +139,7 @@
                                 colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
                                 keyboardActions = KeyboardActions { focusRequester.requestFocus() }
                             )
+
                             OutlinedTextField(
                                 value = passwordValue.value,
                                 onValueChange = { passwordValue.value = it },
@@ -191,12 +162,7 @@
                                         width = 2.dp,
                                         color = Color.Green,
                                         shape = RoundedCornerShape(8.dp)
-                                    )
-                                    .onFocusEvent {
-                                        coroutineScope.launch {
-                                            bringIntoViewRequester.bringIntoView()
-                                        }
-                                    },
+                                    ),
                                 colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
                             )
 
@@ -216,8 +182,7 @@
                                             dbConnect = dbConnect,
                                             userName = userName.value,
                                             passWord = passwordValue.value,
-                                            navController = navController,
-                                            localStorageRef = localStorageRef
+                                            navController = navController
                                         )
                                     }
                                 },
@@ -261,20 +226,14 @@
     }
 
 
+
     @Composable
     @Preview
     fun Login() {
         NFTMarketplaceTheme {
-            LoginPage(
-                context = MainActivity().context,
-                navController = rememberNavController(),
-                dbConnect = FirebaseDatabase.getInstance(),
-                localStorageRef = MainActivity().getSharedPreferences(
-                    " ",
-                    Context.MODE_PRIVATE
-                ),
-                dbStorageConnect = FirebaseStorage.getInstance()
-            )
+            val navController = rememberNavController()
+            var dbTemp = FirebaseDatabase.getInstance()
+            LoginPage(navController, MainActivity(), dbTemp)
         }
     }
 

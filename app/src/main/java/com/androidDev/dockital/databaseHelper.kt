@@ -62,17 +62,19 @@ fun logInChecker(
                 if(mapUserChecker.value == userName){
                     dbConnect.getReference("/userStore/${mapUserChecker.value}").get().addOnSuccessListener{
                             mapUserFinder ->
+                        println(mapUserFinder)
                         if(mapUserFinder.value != null) {
-                            var userDataFetched = mapUserFinder.value as HashMap<String, String>
-                            var passwordFetched:String = userDataFetched["password"]!!
+                            var userDataFetched = mapUserFinder.value as HashMap<String, Any?>
+                            var passwordFetched:String = userDataFetched["passWord"].toString()
                             if(passwordFetched == passWord){
+                                localStorageRef.edit().clear().commit()
                                 with(localStorageRef.edit()){
-                                    this.putString(R.string.name.toString(),  userDataFetched["name"])
+                                    this.putString(R.string.name.toString(),  userDataFetched["name"].toString())
                                     this.putString(R.string.userName.toString(),  mapUserChecker.value)
-                                    this.putString(R.string.passWord.toString(),  userDataFetched["password"])
-                                    this.putString(R.string.metaMaskId.toString(),  userDataFetched["metaMaskHash"])
-                                    this.putString(R.string.phoneNumber.toString(),  userDataFetched["phoneNumber"])
-                                    this.putString(R.string.emailId.toString(),  userDataFetched["email"])
+                                    this.putString(R.string.passWord.toString(),  userDataFetched["passWord"].toString())
+                                    this.putString(R.string.metaMaskId.toString(),  userDataFetched["metaMaskHash"].toString())
+                                    this.putString(R.string.phoneNumber.toString(),  userDataFetched["phoneNumber"].toString())
+                                    this.putString(R.string.emailId.toString(),  userDataFetched["email"].toString())
                                     apply()
                                 }
                                 navController.popBackStack()
@@ -113,7 +115,8 @@ fun signInChecker(
     emailId: String,
     phoneNumber: String,
     passWord: String,
-    navController : NavController
+    navController : NavController,
+    localStorageRef: SharedPreferences
 ){
     dbConnect.getReference("/usersList").get().addOnSuccessListener{
             userListChecker ->
@@ -136,6 +139,20 @@ fun signInChecker(
         dbConnect.getReference("/userStore").child("$userName").setValue(courier).addOnSuccessListener {
             customToast(context = context, "Signed In Successfully")
             dbConnect.getReference("/usersList").push().setValue("$userName").addOnSuccessListener{
+                    localStorageRef.edit().clear().commit()
+                    with(localStorageRef.edit()){
+                    this.putString(R.string.name.toString(),  name)
+                    this.putString(R.string.userName.toString(),  userName)
+                    this.putString(R.string.passWord.toString(),  passWord)
+                    this.putString(R.string.metaMaskId.toString(),  "tempo") // MetaMask Fixing
+                    this.putString(R.string.phoneNumber.toString(),  phoneNumber)
+                    this.putString(R.string.emailId.toString(),  emailId)
+                    apply()
+                }
+                navController.popBackStack()
+                navController.navigate("Home")
+                navController.navigateUp()
+                Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
                 Toast.makeText(context, "User Updated In Main List", Toast.LENGTH_LONG).show()
             }.addOnFailureListener{
                 Toast.makeText(context, "Unable To Update userList in Database", Toast.LENGTH_LONG).show()

@@ -280,7 +280,8 @@ fun RegisterPage(context : Context, navController: NavController, dbConnect: Fir
                                             emailId = emailValue.value,
                                             phoneNumber = phoneValue.value,
                                             passWord = passwordValue.value,
-                                            navController = navController
+                                            navController = navController,
+                                            localStorageRef = localStorageRef
                                         )
                                     }
                                 },

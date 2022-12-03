@@ -11,6 +11,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.IosShare
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import com.androidDev.dockital.R
@@ -18,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -54,34 +57,78 @@ fun MainProfile(context : Context , navController: NavController, dbConnect: Fir
         navController.navigate(NavigationItem.Login.route)
     }
     else{
+        var configurationDetails = LocalConfiguration.current
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(32, 15, 52)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Profile",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = Color.Gray,
-                    )
-                },
-                backgroundColor = Color(32, 15, 52),
-                elevation = 4.dp,
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.navigate("Home")
-                    }) {
+//            TopAppBar(
+//                title = {
+//                    Text(
+//                        text = "Profile",
+//                        maxLines = 1,
+//                        overflow = TextOverflow.Ellipsis,
+//                        color = Color.Gray,
+//                    )
+//                },
+//                backgroundColor = Color(32, 15, 52),
+//                elevation = 4.dp,
+//                navigationIcon = {
+//                    IconButton(onClick = {
+//                        navController.navigate("Home")
+//                    }) {
+//                        Icon(
+//                            Icons.Filled.ArrowBack,
+//                            contentDescription = "Go back",
+//                        )
+//                    }
+//                }
+//            )
+           ///////////////////////
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 2.dp, bottom = 2.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .width((configurationDetails.screenWidthDp * 0.5).dp)
+                ) {
+                    IconButton(
+                        onClick = {
+                            navController.navigateUp()
+                        }
+                    ) {
                         Icon(
-                            Icons.Filled.ArrowBack,
-                            contentDescription = "Go back",
+                            imageVector = Icons.Filled.KeyboardArrowLeft,
+                            contentDescription = "Back",
+                            tint = Color.Gray,
                         )
                     }
                 }
-            )
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .width((configurationDetails.screenWidthDp * 0.5).dp)
+                ) {
+                    IconButton(
+                        onClick = {
+
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.IosShare,
+                            contentDescription = "Back",
+                            tint = Color.Gray,
+                        )
+                    }
+                }
+
+            }
+            //////////////////////////
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

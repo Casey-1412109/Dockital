@@ -46,7 +46,7 @@ fun DetailsScreen(nftName:String?,navControllerDetails:() -> Unit)
         nft = i
     }
 }
-    var configurationDetails = LocalConfiguration.current
+        var configurationDetails = LocalConfiguration.current
     var scrollStateDetail = rememberScrollState()
     LazyColumn(
         modifier = Modifier
@@ -87,7 +87,7 @@ fun DetailsScreen(nftName:String?,navControllerDetails:() -> Unit)
                     ) {
                         Icon(
                             imageVector = Icons.Filled.IosShare,
-                            contentDescription = "Back",
+                            contentDescription = "Share",
                             tint = Color.Green,
                         )
                     }

@@ -116,10 +116,10 @@ fun signInChecker(
     navController : NavController
 ){
     dbConnect.getReference("/usersList").get().addOnSuccessListener{
-        userListChecker ->
+            userListChecker ->
         if(userListChecker.value != null){
             var userListFetched =  userListChecker.value as HashMap<String, String>
-             userListFetched.forEach{
+            userListFetched.forEach{
                     aUser ->
                 if(aUser.value == userName){
                     Toast.makeText(context, "Username is already used", Toast.LENGTH_LONG).show()

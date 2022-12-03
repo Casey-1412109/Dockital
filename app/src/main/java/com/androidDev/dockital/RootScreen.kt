@@ -21,6 +21,7 @@ import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 
+
 @Preview
 @Composable
 fun RootScreenPreview() {
@@ -45,7 +46,6 @@ fun RootScreen(
     localStorageRef: SharedPreferences
 ) {
     val navController = rememberNavController()
-
     Scaffold(
         bottomBar = {
             if(localStorageRef.all.isNotEmpty()){
@@ -55,18 +55,11 @@ fun RootScreen(
         }
     ) {
         NavHost(navController = navController,
-            startDestination = if (localStorageRef.all.isEmpty()) { //############################ Account Auth
+            startDestination =if (localStorageRef.all.isEmpty()) {
                 NavigationItem.Login.route
             } else {
-//                RootScreen(
-//                    context = context,
-//                    dbConnect = dbConnect,
-//                    localStorageRef = localStorageRef,
-//                    dbStorageConnect = dbStorageConnect
-//                )
                 NavigationItem.Home.route
             }) {
-
             composable(NavigationItem.Home.route) {
                 HomeScreen(
                     context = context,
@@ -121,6 +114,7 @@ fun RootScreen(
                     dbStorageConnect = dbStorageConnect
                 )
             }
+
         }
 
     }

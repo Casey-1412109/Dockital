@@ -2,11 +2,13 @@ package com.androidDev.dockital.screens.logReg
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -15,9 +17,11 @@ import androidx.compose.material.icons.filled.Password
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -35,7 +39,9 @@ import com.androidDev.dockital.R
 import com.androidDev.dockital.signInChecker
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RegisterPage(context: Context, navController: NavController, dbConnect : FirebaseDatabase) {
     val ima = painterResource(id = R.drawable.register_page)
@@ -47,6 +53,9 @@ fun RegisterPage(context: Context, navController: NavController, dbConnect : Fir
     val confirmPasswordValue = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
     val confirmPasswordVisibility = remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -147,7 +156,12 @@ fun RegisterPage(context: Context, navController: NavController, dbConnect : Fir
                                         width = 2.dp,
                                         color = Color.Green,
                                         shape = RoundedCornerShape(8.dp)
-                                    ),
+                                    )
+                                    .onFocusEvent {
+                                        coroutineScope.launch {
+                                            bringIntoViewRequester.bringIntoView()
+                                        }
+                                    }
                             )
 
                             OutlinedTextField(
@@ -163,7 +177,12 @@ fun RegisterPage(context: Context, navController: NavController, dbConnect : Fir
                                         width = 2.dp,
                                         color = Color.Green,
                                         shape = RoundedCornerShape(8.dp)
-                                    ),
+                                    )
+                                    .onFocusEvent {
+                                        coroutineScope.launch {
+                                            bringIntoViewRequester.bringIntoView()
+                                        }
+                                    },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
                             )
 
@@ -180,7 +199,12 @@ fun RegisterPage(context: Context, navController: NavController, dbConnect : Fir
                                         width = 2.dp,
                                         color = Color.Green,
                                         shape = RoundedCornerShape(8.dp)
-                                    ),
+                                    )
+                                    .onFocusEvent {
+                                        coroutineScope.launch {
+                                            bringIntoViewRequester.bringIntoView()
+                                        }
+                                    },
                                 trailingIcon = {
                                     IconButton(onClick = {
                                         passwordVisibility.value = !passwordVisibility.value
@@ -209,7 +233,12 @@ fun RegisterPage(context: Context, navController: NavController, dbConnect : Fir
                                         width = 2.dp,
                                         color = Color.Green,
                                         shape = RoundedCornerShape(8.dp)
-                                    ),
+                                    )
+                                    .onFocusEvent {
+                                        coroutineScope.launch {
+                                            bringIntoViewRequester.bringIntoView()
+                                        }
+                                    },
                                 trailingIcon = {
                                     IconButton(onClick = {
                                         confirmPasswordVisibility.value =

@@ -1,13 +1,13 @@
     package com.androidDev.dockital.screens.logReg
 
     import android.content.Context
-    import android.provider.Settings.Secure
     import android.widget.Toast
-    import androidx.compose.foundation.Image
-    import androidx.compose.foundation.background
-    import androidx.compose.foundation.border
+    import androidx.compose.foundation.*
+    import androidx.compose.foundation.gestures.Orientation
+    import androidx.compose.foundation.gestures.scrollable
     import androidx.compose.foundation.layout.*
     import androidx.compose.foundation.lazy.LazyColumn
+    import androidx.compose.foundation.relocation.BringIntoViewRequester
     import androidx.compose.foundation.shape.RoundedCornerShape
     import androidx.compose.foundation.text.KeyboardActions
     import androidx.compose.material.*
@@ -16,10 +16,12 @@
     import androidx.compose.runtime.Composable
     import androidx.compose.runtime.mutableStateOf
     import androidx.compose.runtime.remember
+    import androidx.compose.runtime.rememberCoroutineScope
     import androidx.compose.ui.Alignment
     import androidx.compose.ui.Modifier
     import androidx.compose.ui.draw.clip
     import androidx.compose.ui.focus.FocusRequester
+    import androidx.compose.ui.focus.onFocusEvent
     import androidx.compose.ui.graphics.Color
     import androidx.compose.ui.res.painterResource
     import androidx.compose.ui.text.TextStyle
@@ -37,10 +39,12 @@
     import com.androidDev.dockital.logInChecker
     import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
     import com.google.firebase.database.FirebaseDatabase
+    import kotlinx.coroutines.launch
 
-//    fun getAndroidId(context: Context){
+    //    fun getAndroidId(context: Context){
 //        Secure.getString(context.contentResolver, Secure.ANDROID_ID)
 //    }
+
     @Composable
     fun LoginScreen(dbConnect: FirebaseDatabase, context: Context){
         val navController = rememberNavController()
@@ -61,6 +65,8 @@
 
         }
     }
+
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun LoginPage(navController: NavController, context: Context, dbConnect: FirebaseDatabase) {
 //        var progressStart = CircularProgressIndicator()
@@ -69,16 +75,20 @@
         val passwordValue = remember { mutableStateOf("") }
         val passwordVisibility = remember { mutableStateOf(false) }
         val focusRequester = remember { FocusRequester() }
+        val bringIntoViewRequester = remember { BringIntoViewRequester() }
+        val coroutineScope = rememberCoroutineScope()
 
         Box(
             modifier = Modifier
                 .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter,
         ) {
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White),
+                    .background(Color.White)
+                    .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical),
                 contentAlignment = Alignment.TopCenter
             ) {
                 Image(
@@ -162,7 +172,12 @@
                                         width = 2.dp,
                                         color = Color.Green,
                                         shape = RoundedCornerShape(8.dp)
-                                    ),
+                                    )
+                                    .onFocusEvent {
+                                        coroutineScope.launch {
+                                            bringIntoViewRequester.bringIntoView()
+                                        }
+                                    },
                                 colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
                             )
 
@@ -226,13 +241,12 @@
     }
 
 
-
     @Composable
     @Preview
     fun Login() {
         NFTMarketplaceTheme {
             val navController = rememberNavController()
-            var dbTemp = FirebaseDatabase.getInstance()
+            val dbTemp = FirebaseDatabase.getInstance()
             LoginPage(navController, MainActivity(), dbTemp)
         }
     }

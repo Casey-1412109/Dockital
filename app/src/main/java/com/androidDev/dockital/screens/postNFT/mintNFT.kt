@@ -1,6 +1,7 @@
 package com.androidDev.dockital.screens.postNFT
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.widget.Toast
@@ -191,7 +192,6 @@ fun MintPush(context : Context, navController: NavController, dbConnect: Firebas
 //                    contentDescription =
 //                )
                 Image(
-                    
                     painter = rememberAsyncImagePainter(
                         ImageRequest
                             .Builder(context)

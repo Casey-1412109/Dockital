@@ -3,6 +3,7 @@ package com.androidDev.dockital
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.navigation.NavController
 import com.google.firebase.database.FirebaseDatabase
@@ -180,7 +181,11 @@ fun nftMinter(
     description : String,
     dbStorageConnect: FirebaseStorage
 ){
-    dbStorageConnect.getReference("/images")
+    if(uri == null){
+        customToast(context, "Please Select Image")
+    }
+//    var currentBitmap =MediaStore.Images.Media.
+
 }
 
 

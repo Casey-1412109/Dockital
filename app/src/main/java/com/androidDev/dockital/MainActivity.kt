@@ -33,13 +33,11 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     RootScreen(
+//                        mainViewModel = this.mainViewModel,
                         context = context,
                         dbConnect = dbConnect,
                         localStorageRef = localStorageRef,
                         dbStorageConnect = dbStorageConnect
-//                        mainViewModel = this.mainViewModel,
-//                        context = this.context,
-//                        dbConnect = this.dbConnect
                     )
 
                 }

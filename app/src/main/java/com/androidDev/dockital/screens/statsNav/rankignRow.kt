@@ -30,12 +30,12 @@ fun RankingRow(
     image: Int,
     change: Double,
     eth: Double,
-    navControllerRow:NavController
+    navController:NavController
 ) {
     val context = LocalContext.current
     Button(
         onClick = {
-            navControllerRow.navigate("detailedMainStates/${title}")
+            navController.navigate("detailedMainStates/${title}")
         },
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(alpha = 0f))
 
@@ -119,7 +119,7 @@ fun PreviewRankingRow() {
             image = rankings[0].image,
             change = rankings[0].percentChange,
             eth = rankings[0].eth,
-            navControllerRow = rememberNavController()
+            navController = rememberNavController()
         )
     }
 }

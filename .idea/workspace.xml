@@ -13,19 +13,30 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4062b167-06fe-4ee1-ac01-21a06d038861" name="Changes" comment="Saving Login Creds">
-      <change afterPath="$PROJECT_DIR$/app/build/generated/res/google-services/debug/values/values.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/androidDev/dockital/BuildConfig.java" afterDir="false" />
+    <list default="true" id="4062b167-06fe-4ee1-ac01-21a06d038861" name="Changes" comment="Navigation Controller">
+      <change afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/androidTest/debug/com/androidDev/dockital/test/BuildConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/RootScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/RootScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/databaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/databaseHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/logReg/Register.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/logReg/Register.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/mintNFT.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/mintNFT.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/profileNav/mainProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/profileNav/mainProfile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/detailsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/detailsScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/DataPoints.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/DataPoints.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/Price.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/PriceCard.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/SearchScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/SearchScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/detailsScreen.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/test1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/detailScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankignRow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankignRow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankingTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/rankingTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/statsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/statsScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +149,7 @@
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="test.recorder" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="PsdUISettings">
@@ -279,6 +290,67 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DetailsScreenPrev" type="ComposePreviewRunConfiguration" activateToolWindowBeforeRun="false" singleton="false" temporary="true">
+      <module name="Dockital.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="--es composable com.androidDev.dockital.screens.searchNav.Test1Kt.DetailsScreenPrev" />
+      <option name="MODE" value="specific_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="androidx.compose.ui.tooling.PreviewActivity" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="true" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <compose-preview-run-configuration composable-fqn="com.androidDev.dockital.screens.searchNav.Test1Kt.DetailsScreenPrev" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SearchScreenPreview" type="ComposePreviewRunConfiguration" temporary="true">
       <module name="Dockital.app" />
       <option name="DEPLOY" value="true" />
@@ -364,9 +436,11 @@
       <item itemvalue="Android Instrumented Tests.ExampleInstrumentedTest" />
       <item itemvalue="Compose Preview.SearchScreenPreview" />
       <item itemvalue="Gradle.Dockital" />
+      <item itemvalue="Compose Preview.DetailsScreenPrev" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Compose Preview.DetailsScreenPrev" />
         <item itemvalue="Gradle.Dockital" />
         <item itemvalue="Android Instrumented Tests.ExampleInstrumentedTest" />
         <item itemvalue="Compose Preview.SearchScreenPreview" />
@@ -417,7 +491,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670090108714</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Login Bug Fixed">
+      <created>1670093062913</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1670093062913</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -452,6 +533,8 @@
     <MESSAGE value="Login And SingIn Done For Know" />
     <MESSAGE value="Firebase Connectivity Done LogIn and Sign In" />
     <MESSAGE value="Saving Login Creds" />
-    <option name="LAST_COMMIT_MESSAGE" value="Saving Login Creds" />
+    <MESSAGE value="Login Bug Fixed" />
+    <MESSAGE value="Navigation Controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Navigation Controller" />
   </component>
 </project>

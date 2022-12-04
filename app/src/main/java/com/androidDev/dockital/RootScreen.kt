@@ -1,14 +1,16 @@
 package com.androidDev.dockital
 
-import android.annotation.SuppressLint
+import  android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.androidDev.dockital.navigations.BottomBar
 import com.androidDev.dockital.navigations.NavigationItem
 import com.androidDev.dockital.screens.searchNav.SearchScreen
@@ -16,6 +18,7 @@ import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.logReg.LoginScreen
 import com.androidDev.dockital.screens.postNFT.MintPush
 import com.androidDev.dockital.screens.profileNav.MainProfile
+import com.androidDev.dockital.screens.searchNav.DetailScreen
 import com.androidDev.dockital.screens.statsNav.StatsScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.database.FirebaseDatabase
@@ -27,7 +30,6 @@ import com.google.firebase.storage.FirebaseStorage
 fun RootScreenPreview() {
     NFTMarketplaceTheme {
         RootScreen(
-//            mainViewModel = mainViewModel(),
             context = MainActivity(),
             dbConnect =  FirebaseDatabase.getInstance(),
             dbStorageConnect = FirebaseStorage.getInstance(),
@@ -95,6 +97,50 @@ fun RootScreen(
                     localStorageRef = localStorageRef,
                     dbStorageConnect = dbStorageConnect
                 )
+            }
+            composable(
+                "details/{countryName}",
+                arguments = listOf(navArgument("countryName") { type = NavType.StringType })
+            ) {
+                    backStackEntry ->
+                backStackEntry.arguments?.getString("countryName")?.let { nftName ->
+//                DetailsScreen(nftName = nftName, navControllerDetails = {
+//                    navController.navigate("main")
+//                })
+                    DetailScreen(
+                        nftName = nftName,
+                        context = context,
+                        navController = navController,
+                        dbConnect = dbConnect,
+                        localStorageRef = localStorageRef,
+                        dbStorageConnect = dbStorageConnect
+                    )
+                }
+            }
+            composable("mainStateScreen") {
+                StatsScreen(
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
+            composable("detailedMainStates/{NftName}",
+                arguments = listOf(navArgument("NftName"){defaultValue = "Azumi"})
+            )
+            {backStackEntery ->
+                val nftName = backStackEntery.arguments?.getString("NftName")
+                nftName?.let {
+                    DetailScreen(
+                        nftName = it,
+                        context = context,
+                        navController = navController,
+                        dbConnect = dbConnect,
+                        localStorageRef = localStorageRef,
+                        dbStorageConnect = dbStorageConnect
+                    )
+                }
             }
             composable(NavigationItem.Profile.route) {
                 MainProfile(

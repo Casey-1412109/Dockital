@@ -26,8 +26,6 @@ import androidx.navigation.navArgument
 import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.components.customTabOffset
 import com.androidDev.dockital.models.rankings
-import com.androidDev.dockital.navigations.NavigationItem
-import com.androidDev.dockital.screens.searchNav.DetailsScreen
 import com.androidDev.dockital.screens.home.HomeScreen
 import com.androidDev.dockital.screens.searchNav.DetailScreen
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
@@ -49,47 +47,9 @@ fun StatsScreenPreview(){
     )
 }
 @Composable
-fun StatsScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage){
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "mainStateScreen") {
-        composable("mainStateScreen") {
-            MainStatsScreen(navigateController = navController)
-        }
-        composable("detailedMainStates/{NftName}",
-        arguments = listOf(navArgument("NftName"){defaultValue = "Azumi"})
-        )
-//        composable("detailScreen",
-//            arguments = listOf(navArgument("NftName"){defaultValue = "Azumi"})
-//        )
-        {backStackEntery ->
-            val nftName = backStackEntery.arguments?.getString("NftName")
-            nftName?.let {
-//                DetailsScreen(nftName = it, navControllerDetails = {
-//                    navController.navigate("mainStateScreen")
-//                    }
-//                )
-                DetailScreen(nftName = it, navControllerDetails = {
-                    navController.navigate("mainStateScreen")
-                })
-            }
-        }
-        composable("Home"){
-            HomeScreen(
-                context = context,
-                navController = navController,
-                dbConnect = dbConnect,
-                localStorageRef = localStorageRef,
-                dbStorageConnect = dbStorageConnect
-            )
-        }
-
-    }
-}
-
-@Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
-fun MainStatsScreen(navigateController: NavController) {
+fun StatsScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -124,7 +84,7 @@ fun MainStatsScreen(navigateController: NavController) {
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.padding(16.dp, 20.dp)
             ) {
-                RankingTable(rankings, navControllerTable = navigateController)
+                RankingTable(rankings, navControllerTable = navController)
             }
         }
     }
@@ -183,7 +143,15 @@ fun CustomTabComponent() {
 @Composable
 fun StatMainScreenPreview() {
     NFTMarketplaceTheme {
-        val tempNavStatsMain = rememberNavController()
-        MainStatsScreen(tempNavStatsMain)
+        StatsScreen(
+            context = MainActivity().context,
+            navController = rememberNavController(),
+            dbConnect = FirebaseDatabase.getInstance(),
+            localStorageRef = MainActivity().getSharedPreferences(
+                " ",
+                Context.MODE_PRIVATE
+            ),
+            dbStorageConnect = FirebaseStorage.getInstance()
+        )
     }
 }

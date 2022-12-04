@@ -28,7 +28,7 @@ fun RankingTable(rankings: List<Ranking>, navControllerTable:NavController) {
                 image = ranking.image,
                 change = ranking.percentChange,
                 eth = ranking.eth,
-                navControllerRow = navControllerTable
+                navController = navControllerTable
             )
         }
     }

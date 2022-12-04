@@ -1,7 +1,9 @@
 package com.androidDev.dockital.screens.searchNav
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.FontWeight
@@ -33,10 +36,15 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.madrapps.plot.line.DataPoint
 import com.madrapps.plot.line.LinePlot
+import dev.shreyaspatil.easyupipayment.EasyUpiPayment
+import dev.shreyaspatil.easyupipayment.listener.PaymentStatusListener
+import dev.shreyaspatil.easyupipayment.model.PaymentApp
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 @Composable
-fun DetailScreen(nftName:String?,context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
+fun DetailScreen(nftName:String?,context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage,mainActivity: MainActivity) {
     var scaffoldState: ScaffoldState = rememberScaffoldState()
     var nft =  Ranking("Azumi", R.drawable.ranking01, "Ujjwal", "Dhruv", 3.99, 200055.02)
     for( i in rankings){
@@ -87,14 +95,15 @@ fun DetailScreen(nftName:String?,context : Context, navController: NavController
                     .padding(it)
                     .background(Color(33, 17, 52)
                     ),
-                navController = navController
+                navController = navController,
+                mainActivity = mainActivity
             )
 
     }
 }
 
 @Composable
-private fun Content(nft:Ranking,modifier: Modifier, navController: NavController) {
+private fun Content(nft:Ranking,modifier: Modifier, navController: NavController,mainActivity: MainActivity) {
     Column(modifier = modifier
         .verticalScroll(rememberScrollState())
         .padding(
@@ -174,8 +183,32 @@ private fun Content(nft:Ranking,modifier: Modifier, navController: NavController
             //priceHistory()
             SampleLineGraph(lines = listOf(DataPoints.dataPoints1))
             Spacer(modifier = Modifier.size(20.dp))
+            val ctx = LocalContext.current
+            val activity = (LocalContext.current as? Activity)
             Button(
                 onClick = {
+
+                    //startActivity(context, webIntent, null)
+                    val c: Date = Calendar.getInstance().getTime()
+                    val df = SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault())
+                    val transcId: String = df.format(c)
+
+                    // on below line we are calling make
+                    // payment method to make payment.
+                    makePayment(
+//                        amount.value.text,
+//                        upiId.value.text,
+//                        name.value.text,
+//                        description.value.text,
+                        "1.0",
+                        "abhaydeepsharma61@oksbi",
+                        "Abhay",
+                        "Test",
+                                transcId,
+                        ctx,
+                        activity!!,
+                        mainActivity
+                    )
 
                           //////////// navController
                 },
@@ -199,6 +232,41 @@ private fun Content(nft:Ranking,modifier: Modifier, navController: NavController
         }
     }
 }
+
+private fun makePayment(
+    amount: String,
+    upi: String,
+    name: String,
+    desc: String,
+    transcId: String, ctx: Context, activity: Activity, mainActivity: PaymentStatusListener
+) {
+    try {
+        // START PAYMENT INITIALIZATION
+        val easyUpiPayment = EasyUpiPayment(activity) {
+            this.paymentApp = PaymentApp.ALL
+            this.payeeVpa = upi
+            this.payeeName = name
+            this.transactionId = transcId
+            this.transactionRefId = transcId
+            this.payeeMerchantCode = transcId
+            this.description = desc
+            this.amount = amount
+        }
+        // END INITIALIZATION
+
+        // Register Listener for Events
+        easyUpiPayment.setPaymentStatusListener(mainActivity)
+
+        // Start payment / transaction
+        easyUpiPayment.startPayment()
+    } catch (e: Exception) {
+        // on below line we are handling exception.
+        e.printStackTrace()
+        Toast.makeText(ctx, e.message, Toast.LENGTH_SHORT).show()
+    }
+}
+
+
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -278,7 +346,8 @@ fun DetailsScreenPrev() {
                 " ",
                 Context.MODE_PRIVATE
             ),
-            dbStorageConnect = FirebaseStorage.getInstance()
+            dbStorageConnect = FirebaseStorage.getInstance(),
+            mainActivity = MainActivity()
         )
     }
 }

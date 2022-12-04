@@ -3,6 +3,7 @@ package com.androidDev.dockital
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -15,9 +16,11 @@ import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import dev.shreyaspatil.easyupipayment.listener.PaymentStatusListener
+import dev.shreyaspatil.easyupipayment.model.TransactionDetails
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() , PaymentStatusListener {
     private lateinit var  localStorageRef :SharedPreferences
     private val dbConnect = FirebaseDatabase.getInstance()
     private val dbStorageConnect = FirebaseStorage.getInstance()
@@ -37,11 +40,20 @@ class MainActivity : ComponentActivity() {
                         context = context,
                         dbConnect = dbConnect,
                         localStorageRef = localStorageRef,
-                        dbStorageConnect = dbStorageConnect
+                        dbStorageConnect = dbStorageConnect,
+                        mainActivity = this
                     )
 
                 }
             }
         }
     }
+    override fun onTransactionCancelled() {
+        Toast.makeText(this, "Transaction canceled by user..", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onTransactionCompleted(transactionDetails: TransactionDetails) {
+        Toast.makeText(this, "Transaction completed by user..", Toast.LENGTH_SHORT).show()
+    }
+
 }

@@ -33,7 +33,8 @@ fun RootScreenPreview() {
             context = MainActivity(),
             dbConnect =  FirebaseDatabase.getInstance(),
             dbStorageConnect = FirebaseStorage.getInstance(),
-            localStorageRef = MainActivity().getSharedPreferences("", Context.MODE_PRIVATE)
+            localStorageRef = MainActivity().getSharedPreferences("", Context.MODE_PRIVATE),
+            mainActivity = MainActivity()
         )
     }
 }
@@ -45,7 +46,8 @@ fun RootScreen(
     context: Context,
     dbConnect: FirebaseDatabase,
     dbStorageConnect: FirebaseStorage,
-    localStorageRef: SharedPreferences
+    localStorageRef: SharedPreferences,
+    mainActivity: MainActivity
 ) {
     val navController = rememberNavController()
     Scaffold(
@@ -113,7 +115,8 @@ fun RootScreen(
                         navController = navController,
                         dbConnect = dbConnect,
                         localStorageRef = localStorageRef,
-                        dbStorageConnect = dbStorageConnect
+                        dbStorageConnect = dbStorageConnect,
+                        mainActivity = mainActivity
                     )
                 }
             }
@@ -138,7 +141,8 @@ fun RootScreen(
                         navController = navController,
                         dbConnect = dbConnect,
                         localStorageRef = localStorageRef,
-                        dbStorageConnect = dbStorageConnect
+                        dbStorageConnect = dbStorageConnect,
+                        mainActivity = mainActivity
                     )
                 }
             }

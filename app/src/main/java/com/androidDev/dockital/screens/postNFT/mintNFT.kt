@@ -297,24 +297,26 @@ fun MintPush(context : Context, navController: NavController, dbConnect: Firebas
             Button(
                 enabled = buttonEnabled.value,
                 onClick =  {
-//                    if(
-//                        nameRem.value.isEmpty() ||
-//                        Uri.EMPTY.equals(imageUri) ||
-//                        priceRem.value.isEmpty()
-//                    ){
-//                        Toast.makeText(context, "Fill All Fields", Toast.LENGTH_SHORT).show()
-//                    }
-//                    else{
-                        nftMinter(
+                    if(
+                        nameRem.value.isEmpty() ||
+                        Uri.EMPTY.equals(imageUri) ||
+                        priceRem.value.isEmpty()
+                    ){
+                        Toast.makeText(context, "Fill All Fields", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        buttonEnabled.value = false
+                        buttonEnabled.value = nftMinter(
                             context = context,
-                            dbConnect = dbConnect,
                             uri = imageUri.value,
                             name = nameRem.value,
                             price = priceRem.value,
+                            dbConnect = dbConnect,
                             description = descriptionRem.value,
-                            dbStorageConnect = dbStorageConnect
+                            dbStorageConnect = dbStorageConnect,
+                            localStorageRef = localStorageRef
                         )
-//                    }
+                    }
 
                 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(84,180,53)),

@@ -5,12 +5,18 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavController
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.OnProgressListener
+import com.google.firebase.storage.ktx.component1
 import kotlinx.coroutines.delay
 import okio.FileMetadata
-import java.io.File
+import com.google.firebase.storage.ktx.component1
+import com.google.firebase.storage.ktx.component2
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 fun userStoreDataGen(
@@ -28,20 +34,23 @@ fun userStoreDataGen(
     )
 }
 fun nftsStoreDataGen(
-    cloudPath: String,
     price: String,
     description: String,
     creator: String,
-    owner: String,
-    id: String
-): HashMap<String, String>{
+    owner: String
+): HashMap<String, Any>{
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     return hashMapOf(
-        "cloudPath" to cloudPath,
-        "ownerPrice" to price,
-        "ownerDescription" to description,
-        "creator" to creator,
-        "owner" to owner,
-        "id" to id,
+        "type" to "image",
+        "owners" to hashMapOf<String, Any>(
+            "$owner" to hashMapOf(
+                "time" to (LocalDateTime.now().format(formatter)).toString(),
+                "price" to "$price"
+            )
+        ),
+        "creator" to "$creator",
+        "currentPrice" to "$price",
+        "description" to "$description"
     )
 }
 
@@ -99,10 +108,15 @@ fun logInChecker(
                     }
                     return@addOnSuccessListener
                 }
+                else{
+                    Toast.makeText(context, "No User Found, Please Sign In", Toast.LENGTH_LONG).show()
+                    return@addOnSuccessListener
+                }
             }
         }
         else{
             Toast.makeText(context, "No User Found, Please Sign In", Toast.LENGTH_LONG).show()
+            return@addOnSuccessListener
         }
     }.addOnFailureListener {
         // Feature
@@ -132,6 +146,7 @@ fun signInChecker(
                     return@addOnSuccessListener
                 }
             }
+
         }
         var courier = userStoreDataGen(
             name = name,
@@ -176,37 +191,56 @@ fun nftOwnerUpdater(){
 }
 fun nftMinter(
     context: Context,
-    dbConnect: FirebaseDatabase,
     uri: Uri?,
     name:String,
     price: String,
     description : String,
-    dbStorageConnect: FirebaseStorage
-){
+    dbConnect: FirebaseDatabase,
+    dbStorageConnect: FirebaseStorage,
+    localStorageRef: SharedPreferences
+): Boolean{
     if(uri == null){
         customToast(context, "Please Select Image")
-        return
+        return true
     }
     dbConnect.getReference("nftList").get().addOnSuccessListener {
-        var nftListFetched = (it.value as HashMap<String, String>).values
-        nftListFetched.forEach{
-            nftFetchedName ->
-            if(name == nftFetchedName){
-                customToast(context, "Name Already Used")
-                return@addOnSuccessListener
-            }
-            else{
-                dbStorageConnect.reference.child("image/$name").putFile(uri).addOnSuccessListener {
-                    dbConnect.getReference("nftList").push().child("$name")
-                }.addOnFailureListener{
-                    customToast(context, "Mint Failed")
+        nftListFetchedFirebase ->
+        var nftListFetched = nftListFetchedFirebase.value
+        if(nftListFetched != null) {
+            nftListFetched = (nftListFetchedFirebase.value as HashMap<String, String>).values
+            nftListFetched.forEach { nftFetchedName ->
+                if (name == nftFetchedName) {
+                    customToast(context, "Name Already Used")
+                    return@addOnSuccessListener
                 }
             }
+        }
+        dbStorageConnect.reference.child("images/$name").putFile(uri).addOnSuccessListener {
+            dbConnect.getReference("nftList").push().setValue("$name").addOnSuccessListener {
+                val creatorOwner = localStorageRef.getString(R.string.userName.toString(), "NO_DEFINED_BY_DOCKITAL")!!
+                val nftDataGen = nftsStoreDataGen(
+                    price = price,
+                    description = description,
+                    creator = creatorOwner,
+                    owner = creatorOwner
+                )
+                dbConnect.getReference("nftsStore").child("$name").setValue(nftDataGen).addOnSuccessListener {
+                    customToast(context, "Mint Uploaded")
+                }.addOnFailureListener{
+                    customToast(context, "Mint Uploading Failed")
+                    return@addOnFailureListener
+                }
+            }.addOnFailureListener{
+                return@addOnFailureListener
+            }
+        }.addOnFailureListener{
+            customToast(context = context, "Mint Failed")
+            return@addOnFailureListener
         }
     }.addOnFailureListener{
         customToast(context, "Database Connection Error")
     }
-
+    return true
 }
 
 

@@ -52,7 +52,8 @@
         "Optimize Performance Using Multi Threading",
         "Editable Description b y Current Owner",
         "Add Support of Profile Editing In App",
-        "Optimizing navController"
+        "Optimizing navController",
+        "Progress Bar for Mint"
     ],
     "FireBase DB Structure" : {
         "devices" : [
@@ -93,18 +94,20 @@
         "nftList" : {
             "Azumi" : "0"
         },
-        "nftsStore" : [
-            {
+        "nftsStore" : {
+            "Nftname" : {
                 "type" : "image",
-                "name": "Azumi",
-                "owners": [
-                    ["timestamp1", "name1", "price1"],
-                    ["timestamp2", "name2", "price2"]
-                ],
-                "creator": "casey_1412109",
-                "currentPrice": "",
-                "CloudStorageName": ""
+                "owners" : {
+                    "nameOwner" : {
+                        "time" : "",
+                        "price" : ""
+
+                    }
+                },
+                "creator" : "casey_1412109",
+                "currentPrice" : "",
+                "CloudStorageName" : ""
             }
-        ]
+        }
     }
 }

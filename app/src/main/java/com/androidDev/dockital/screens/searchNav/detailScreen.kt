@@ -262,9 +262,6 @@ fun SampleLineGraph(lines: List<List<DataPoint>>) {
             .fillMaxWidth()
             .height(200.dp)
             .background(Color.White)
-//        onSelection = { xLine, points ->
-//
-//        }
     )
 }
 

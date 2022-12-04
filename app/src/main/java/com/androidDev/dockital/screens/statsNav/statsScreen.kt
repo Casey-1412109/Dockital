@@ -48,7 +48,6 @@ fun StatsScreenPreview(){
 }
 @Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-
 fun StatsScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
     Scaffold(
         topBar = {

@@ -9,6 +9,8 @@ import androidx.navigation.NavController
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.delay
+import okio.FileMetadata
+import java.io.File
 
 
 fun userStoreDataGen(
@@ -183,8 +185,14 @@ fun nftMinter(
 ){
     if(uri == null){
         customToast(context, "Please Select Image")
+        return
     }
-//    var currentBitmap =MediaStore.Images.Media.
+    dbConnect.getReference("nftList").get().addOnSuccessListener {
+        var nftListFetched = (it.value as HashMap<String, String>).values
+        nftListFetched.forEach{
+            nftFetchedName ->
+        }
+    }
 
 }
 

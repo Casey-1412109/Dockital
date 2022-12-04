@@ -27,6 +27,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -92,7 +94,8 @@ fun LoginScreen(context : Context, navController: NavController, dbConnect: Fire
 fun LoginPage(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
     val image = painterResource(id = R.drawable.logie)
     val userName = remember { mutableStateOf("") }
-    val passwordValue = remember { mutableStateOf("") }
+    val
+            passwordValue = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
     val bringIntoViewRequester = remember { BringIntoViewRequester() }
@@ -198,6 +201,8 @@ fun LoginPage(context : Context, navController: NavController, dbConnect: Fireba
                                     }
                                 },
                             colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                            visualTransformation = if (passwordVisibility.value) VisualTransformation.None
+                            else PasswordVisualTransformation()
                         )
 
                         Spacer(modifier = Modifier.padding(10.dp))

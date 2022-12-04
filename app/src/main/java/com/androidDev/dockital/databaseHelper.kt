@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavController
+import com.androidDev.dockital.navigations.NavigationItem
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.OnProgressListener
@@ -108,10 +109,6 @@ fun logInChecker(
                     }
                     return@addOnSuccessListener
                 }
-                else{
-                    Toast.makeText(context, "No User Found, Please Sign In", Toast.LENGTH_LONG).show()
-                    return@addOnSuccessListener
-                }
             }
         }
         else{
@@ -157,18 +154,6 @@ fun signInChecker(
         dbConnect.getReference("/userStore").child("$userName").setValue(courier).addOnSuccessListener {
             customToast(context = context, "Signed In Successfully")
             dbConnect.getReference("/usersList").push().setValue("$userName").addOnSuccessListener{
-                    localStorageRef.edit().clear().commit()
-                    with(localStorageRef.edit()){
-                    this.putString(R.string.name.toString(),  name)
-                    this.putString(R.string.userName.toString(),  userName)
-                    this.putString(R.string.passWord.toString(),  passWord)
-                    this.putString(R.string.metaMaskId.toString(),  "tempo") // MetaMask Fixing
-                    this.putString(R.string.phoneNumber.toString(),  phoneNumber)
-                    this.putString(R.string.emailId.toString(),  emailId)
-                    apply()
-                }
-                navController.popBackStack()
-                navController.navigate("Home")
                 navController.navigateUp()
                 Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
                 Toast.makeText(context, "User Updated In Main List", Toast.LENGTH_LONG).show()

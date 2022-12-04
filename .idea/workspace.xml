@@ -13,20 +13,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4062b167-06fe-4ee1-ac01-21a06d038861" name="Changes" comment="Navigation Controller">
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/databaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/databaseHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/mintNFT.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/postNFT/mintNFT.kt" afterDir="false" />
+    <list default="true" id="4062b167-06fe-4ee1-ac01-21a06d038861" name="Changes" comment="Detailed Screen Error Fixed">
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/SearchScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/SearchScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/detailScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/searchNav/detailScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/statsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidDev/dockital/screens/statsNav/statsScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -495,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670139500669</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Detailed Screen Error Fixed">
+      <created>1670150385799</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670150385799</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -532,6 +527,7 @@
     <MESSAGE value="Saving Login Creds" />
     <MESSAGE value="Login Bug Fixed" />
     <MESSAGE value="Navigation Controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Navigation Controller" />
+    <MESSAGE value="Detailed Screen Error Fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Detailed Screen Error Fixed" />
   </component>
 </project>

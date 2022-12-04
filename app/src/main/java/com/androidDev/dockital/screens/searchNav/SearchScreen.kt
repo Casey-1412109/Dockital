@@ -39,7 +39,7 @@ import kotlin.collections.ArrayList
 
 @Preview
 @Composable
-fun searchScreenPreview(){
+fun SearchScreenPreview(){
     SearchScreen(
         context = MainActivity().context,
         navController = rememberNavController(),
@@ -53,43 +53,12 @@ fun searchScreenPreview(){
 }
 @Composable
 fun SearchScreen(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "main") {
-        composable("main") {
-            MainStatsScreen(navController = navController)
-        }
-        composable(
-            "details/{countryName}",
-            arguments = listOf(navArgument("countryName") { type = NavType.StringType })
-        ) { backStackEntry ->
-            backStackEntry.arguments?.getString("countryName")?.let { nftName ->
-//                DetailsScreen(nftName = nftName, navControllerDetails = {
-//                    navController.navigate("main")
-//                })
-                DetailScreen(nftName = nftName, navControllerDetails = {
-                    navController.navigate("main")
-                })
-            }
-        }
-    }
-}
-
-@Composable
-fun MainStatsScreen(navController: NavController ) {
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     Column {
         SearchView(textState)
         SearchList(navController = navController, state = textState)
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun MainScreenPreview() {
-//    val navController = rememberNavController()
-//    MainStatsScreen(navController = navController)
-//}
-
 @Composable
 fun SearchView(state: MutableState<TextFieldValue>) {
     TextField(
@@ -142,13 +111,6 @@ fun SearchView(state: MutableState<TextFieldValue>) {
     )
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun SearchViewPreview() {
-//    val textState = remember { mutableStateOf(TextFieldValue("")) }
-//    SearchView(textState)
-//}
-
 @Composable
 fun SearchList(navController: NavController, state: MutableState<TextFieldValue>) {
     val countries = rankings
@@ -186,13 +148,6 @@ fun SearchList(navController: NavController, state: MutableState<TextFieldValue>
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun SearchListPreview() {
-//    val navController = rememberNavController()
-//    val textState = remember { mutableStateOf(TextFieldValue("")) }
-//    SearchList(navController = navController, state = textState)
-//}
 
 @Composable
 fun SearchListItem(searchText: String, onItemClick: (String) -> Unit) {
@@ -208,14 +163,6 @@ fun SearchListItem(searchText: String, onItemClick: (String) -> Unit) {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun SearchListItemPreview() {
-//     //searchListItem(searchText = "Azumi  \uD83C\uDDEE\uD83C\uDDF3", onItemClick = { })
-//    // if want the flag
-//     SearchListItem(searchText = "Azumi", onItemClick = { })
-//}
-
 @Composable
 fun TopBar() {
     TopAppBar(
@@ -224,10 +171,3 @@ fun TopBar() {
         contentColor = Color.White
     )
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun TopBarPreview() {
-//    TopBar()
-//}
-

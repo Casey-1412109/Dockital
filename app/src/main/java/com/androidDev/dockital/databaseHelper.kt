@@ -191,7 +191,20 @@ fun nftMinter(
         var nftListFetched = (it.value as HashMap<String, String>).values
         nftListFetched.forEach{
             nftFetchedName ->
+            if(name == nftFetchedName){
+                customToast(context, "Name Already Used")
+                return@addOnSuccessListener
+            }
+            else{
+                dbStorageConnect.reference.child("image/$name").putFile(uri).addOnSuccessListener {
+                    dbConnect.getReference("nftList").push().child("$name")
+                }.addOnFailureListener{
+                    customToast(context, "Mint Failed")
+                }
+            }
         }
+    }.addOnFailureListener{
+        customToast(context, "Database Connection Error")
     }
 
 }

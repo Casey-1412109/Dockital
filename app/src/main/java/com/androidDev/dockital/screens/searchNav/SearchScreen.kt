@@ -36,7 +36,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 import kotlin.collections.ArrayList
-
+//Fixed
 @Preview
 @Composable
 fun SearchScreenPreview(){
@@ -147,8 +147,6 @@ fun SearchList(navController: NavController, state: MutableState<TextFieldValue>
         }
     }
 }
-
-
 @Composable
 fun SearchListItem(searchText: String, onItemClick: (String) -> Unit) {
     Row(

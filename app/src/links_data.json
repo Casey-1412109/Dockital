@@ -90,20 +90,20 @@
                 "metaMaskHash" : "soda view mirror object sense mango avocado genuine record autumn flame gift"
             }
         ],
-        "nftList" : [
-            {"Azumi" : 0}
-        ],
+        "nftList" : {
+            "Azumi" : "0"
+        },
         "nftsStore" : [
             {
-                "id": "1u9240192h4kn3kjb5kj43hb5j34b5j34bpo1imd23c592m3xi203im5",
+                "type" : "image",
                 "name": "Azumi",
-                "owner": [
+                "owners": [
                     ["timestamp1", "name1", "price1"],
                     ["timestamp2", "name2", "price2"]
                 ],
                 "creator": "casey_1412109",
                 "currentPrice": "",
-                "bitmap": ""
+                "CloudStorageName": ""
             }
         ]
     }

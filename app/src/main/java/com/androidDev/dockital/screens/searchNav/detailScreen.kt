@@ -2,7 +2,9 @@ package com.androidDev.dockital.screens.searchNav
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -24,10 +26,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.MainActivity
-import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.androidDev.dockital.R
 import com.androidDev.dockital.models.Ranking
 import com.androidDev.dockital.models.rankings
@@ -39,9 +41,9 @@ import com.madrapps.plot.line.LinePlot
 import dev.shreyaspatil.easyupipayment.EasyUpiPayment
 import dev.shreyaspatil.easyupipayment.listener.PaymentStatusListener
 import dev.shreyaspatil.easyupipayment.model.PaymentApp
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
+
 
 @Composable
 fun DetailScreen(nftName:String?,context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage,mainActivity: MainActivity) {
@@ -93,7 +95,8 @@ fun DetailScreen(nftName:String?,context : Context, navController: NavController
             Content(nft,
                 modifier = Modifier
                     .padding(it)
-                    .background(Color(33, 17, 52)
+                    .background(
+                        Color(33, 17, 52)
                     ),
                 navController = navController,
                 mainActivity = mainActivity
@@ -185,30 +188,55 @@ private fun Content(nft:Ranking,modifier: Modifier, navController: NavController
             Spacer(modifier = Modifier.size(20.dp))
             val ctx = LocalContext.current
             val activity = (LocalContext.current as? Activity)
+            val context = LocalContext.current
+            var intent = context.packageManager
+                .getLaunchIntentForPackage("io.metamask")
+            var packageName = "io.metamask";
+           // val inten = context.packageManager.getLaunchIntentForPackage("com.application.zomato")
+            if (intent == null) {
+                intent = try {
+                    // if play store installed, open play store, else open browser
+                    Intent(Intent.ACTION_VIEW, Uri.parse("android-app://$packageName"))
+                } catch (e: java.lang.Exception) {
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    )
+                }
+            }
             Button(
                 onClick = {
 
                     //startActivity(context, webIntent, null)
-                    val c: Date = Calendar.getInstance().getTime()
-                    val df = SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault())
-                    val transcId: String = df.format(c)
+//                    val c: Date = Calendar.getInstance().getTime()
+//                    val df = SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault())
+//                    val transcId: String = df.format(c)
+//
+//                    // on below line we are calling make
+//                    // payment method to make payment.
+//                    makePayment(
+////                        amount.value.text,
+////                        upiId.value.text,
+////                        name.value.text,
+////                        description.value.text,
+//                        "1.0",
+//                        "abhaydeepsharma61@oksbi",
+//                        "Abhay",
+//                        "Test",
+//                                transcId,
+//                        ctx,
+//                        activity!!,
+//                        mainActivity
+//                    )
 
-                    // on below line we are calling make
-                    // payment method to make payment.
-                    makePayment(
-//                        amount.value.text,
-//                        upiId.value.text,
-//                        name.value.text,
-//                        description.value.text,
-                        "1.0",
-                        "abhaydeepsharma61@oksbi",
-                        "Abhay",
-                        "Test",
-                                transcId,
-                        ctx,
-                        activity!!,
-                        mainActivity
-                    )
+
+                    if (intent != null) {
+                        startActivity(context, intent, null)
+                    }
+                    else{
+                        Toast.makeText(context, "Fail", Toast.LENGTH_LONG).show()
+                    }
+
 
                           //////////// navController
                 },

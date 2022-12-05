@@ -53,6 +53,7 @@ fun RegisterPage(context : Context, navController: NavController, dbConnect: Fir
     val phoneValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
     val confirmPasswordValue = remember { mutableStateOf("") }
+    val upiId = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
     val confirmPasswordVisibility = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
@@ -187,6 +188,25 @@ fun RegisterPage(context : Context, navController: NavController, dbConnect: Fir
                                     },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
                             )
+                            OutlinedTextField(
+                                value = upiId.value,
+                                onValueChange = { upiId.value = it },
+                                placeholder = { Text(text = "UPI Id", color = Color.Gray) },
+                                singleLine = true,
+                                colors = TextFieldDefaults.textFieldColors(textColor = Color.Gray),
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .border(
+                                        width = 2.dp,
+                                        color = Color.Green,
+                                        shape = RoundedCornerShape(8.dp)
+                                    )
+                                    .onFocusEvent {
+                                        coroutineScope.launch {
+                                            bringIntoViewRequester.bringIntoView()
+                                        }
+                                    }
+                            )
 
                             OutlinedTextField(
                                 value = passwordValue.value,
@@ -214,7 +234,7 @@ fun RegisterPage(context : Context, navController: NavController, dbConnect: Fir
                                         Icon(
                                             Icons.Default.Password,
                                             "Password",
-                                            tint = if (passwordVisibility.value) Color.Magenta else Color.Blue
+                                            tint =   if (passwordVisibility.value) Color.Magenta else Color.Blue
                                         )
                                     }
                                 },
@@ -280,6 +300,7 @@ fun RegisterPage(context : Context, navController: NavController, dbConnect: Fir
                                             emailId = emailValue.value,
                                             phoneNumber = phoneValue.value,
                                             passWord = passwordValue.value,
+                                            upiId = upiId.value,
                                             navController = navController,
                                             localStorageRef = localStorageRef
                                         )

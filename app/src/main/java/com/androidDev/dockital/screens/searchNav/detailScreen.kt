@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.*
@@ -206,36 +207,28 @@ private fun Content(nft:Ranking,modifier: Modifier, navController: NavController
             }
             Button(
                 onClick = {
+                    val c: Date = Calendar.getInstance().time
+                    val df = SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault())
+                    val transcId: String = df.format(c)
 
-                    //startActivity(context, webIntent, null)
-//                    val c: Date = Calendar.getInstance().getTime()
-//                    val df = SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault())
-//                    val transcId: String = df.format(c)
-//
-//                    // on below line we are calling make
-//                    // payment method to make payment.
-//                    makePayment(
-////                        amount.value.text,
-////                        upiId.value.text,
-////                        name.value.text,
-////                        description.value.text,
-//                        "1.0",
-//                        "abhaydeepsharma61@oksbi",
-//                        "Abhay",
-//                        "Test",
-//                                transcId,
-//                        ctx,
-//                        activity!!,
-//                        mainActivity
-//                    )
+                    makePayment(
+                        "1.0",
+                        "abhaydeepsharma61@oksbi",
+                        "Abhay",
+                        "Test",
+                                transcId,
+                        ctx,
+                        activity!!,
+                        mainActivity
+                    )
 
-
-                    if (intent != null) {
-                        startActivity(context, intent, null)
-                    }
-                    else{
-                        Toast.makeText(context, "Fail", Toast.LENGTH_LONG).show()
-                    }
+                    /// MetaMask
+//                    if (intent != null) {
+//                        startActivity(context, intent, null)
+//                    }
+//                    else{
+//                        Toast.makeText(context, "Fail", Toast.LENGTH_LONG).show()
+//                    }
 
 
                           //////////// navController

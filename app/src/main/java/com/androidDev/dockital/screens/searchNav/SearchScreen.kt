@@ -113,16 +113,16 @@ fun SearchView(state: MutableState<TextFieldValue>) {
 
 @Composable
 fun SearchList(navController: NavController, state: MutableState<TextFieldValue>) {
-    val countries = rankings
-    var filteredCountries: ArrayList<String> = ArrayList()
-    for(i in countries) filteredCountries.add(i.title)
+    val nftsForSearch = rankings
+    var filteredNfts: ArrayList<String> = ArrayList()
+    for(i in nftsForSearch) filteredNfts.add(i.title)
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         val searchedText = state.value.text
-        filteredCountries = if (searchedText.isEmpty()) {
-            filteredCountries
+        filteredNfts = if (searchedText.isEmpty()) {
+            filteredNfts
         } else {
             val resultList = ArrayList<String>()
-            for (search in countries) {
+            for (search in nftsForSearch) {
                 if (search.title.lowercase(Locale.getDefault())
                         .contains(searchedText.lowercase(Locale.getDefault()))
                 ) {
@@ -131,7 +131,7 @@ fun SearchList(navController: NavController, state: MutableState<TextFieldValue>
             }
             resultList
         }
-        items(filteredCountries) { filteredsearch ->
+        items(filteredNfts) { filteredsearch ->
             SearchListItem(
                 searchText = filteredsearch,
                 onItemClick = { selectedsearch ->
@@ -151,7 +151,11 @@ fun SearchList(navController: NavController, state: MutableState<TextFieldValue>
 fun SearchListItem(searchText: String, onItemClick: (String) -> Unit) {
     Row(
         modifier = Modifier
-            .clickable(onClick = { onItemClick(searchText) })
+            .clickable(
+                onClick = {
+                    onItemClick(searchText)
+                }
+            )
             .background(Color(33, 17, 52))
             .height(57.dp)
             .fillMaxWidth()

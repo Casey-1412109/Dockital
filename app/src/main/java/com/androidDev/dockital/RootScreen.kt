@@ -101,11 +101,11 @@ fun RootScreen(
                 )
             }
             composable(
-                "details/{countryName}",
-                arguments = listOf(navArgument("countryName") { type = NavType.StringType })
+                "details/{NftName}",
+                arguments = listOf(navArgument("NftName") { type = NavType.StringType })
             ) {
                     backStackEntry ->
-                backStackEntry.arguments?.getString("countryName")?.let { nftName ->
+                backStackEntry.arguments?.getString("NftName")?.let { nftName ->
 //                DetailsScreen(nftName = nftName, navControllerDetails = {
 //                    navController.navigate("main")
 //                })

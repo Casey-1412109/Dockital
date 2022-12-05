@@ -48,8 +48,9 @@ fun CollectionCard(
 
 
     var isLiked by remember { mutableStateOf(false) }
-    Button(onClick = {
-
+    Button(
+        onClick = {
+        navController.navigate("details/$title")
     }) {
         Column(
             modifier = Modifier

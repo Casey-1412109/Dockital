@@ -7,10 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.IconToggleButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -49,6 +46,7 @@ fun CollectionCard(
 
     var isLiked by remember { mutableStateOf(false) }
     Button(
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(alpha = 0.0f)),
         onClick = {
         navController.navigate("details/$title")
     }) {

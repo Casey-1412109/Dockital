@@ -76,5 +76,5 @@ dependencies {
     implementation 'com.github.madrapps:plot:0.1.1'
     implementation 'dev.shreyaspatil.EasyUpiPayment:EasyUpiPayment:3.0.3'
 
-    implementation("com.walletconnect:sign:release_version")
+//    implementation("com.walletconnect:sign:release_version")
 }

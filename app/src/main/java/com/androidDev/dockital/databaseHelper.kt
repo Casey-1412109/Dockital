@@ -7,6 +7,10 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavController
+import com.androidDev.dockital.models.NFTCollection
+import com.androidDev.dockital.models.Ranking
+import com.androidDev.dockital.models.collections
+import com.androidDev.dockital.models.rankings
 import com.androidDev.dockital.navigations.NavigationItem
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -16,8 +20,11 @@ import kotlinx.coroutines.delay
 import okio.FileMetadata
 import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
+import java.security.MessageDigest
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.HashMap
 
 
 fun userStoreDataGen(
@@ -27,9 +34,13 @@ fun userStoreDataGen(
     passWord: String,
     upiId: String
 ): HashMap<String, String> {
+    val md = MessageDigest.getInstance("SHA-256")
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val metamask = (LocalDateTime.now().format(formatter)).toString().toByteArray()
+    val digest = (md.digest(metamask)).fold("") { str, it -> str + "%02x".format(it) }
     return hashMapOf(
         "emailId" to emailId,
-        "metaMaskHash" to "tempo",
+        "metaMaskHash" to "$digest",
         "name" to name,
         "upiId" to upiId,
         "passWord" to passWord,
@@ -113,6 +124,8 @@ fun logInChecker(
                     return@addOnSuccessListener
                 }
             }
+            Toast.makeText(context, "No User Found, Please Sign In", Toast.LENGTH_LONG).show()
+            return@addOnSuccessListener
         }
         else{
             Toast.makeText(context, "No User Found, Please Sign In", Toast.LENGTH_LONG).show()
@@ -214,6 +227,24 @@ fun nftMinter(
                     creator = creatorOwner,
                     owner = creatorOwner
                 )
+                rankings.add(
+                    Ranking(
+                        image = R.drawable.test4,
+                        title = "$name",
+                        creator = creatorOwner,
+                        owner = creatorOwner,
+                        percentChange = 33.3,
+                        eth = price.toDouble()
+                    )
+                )
+                collections.add(
+                    NFTCollection(
+                        title = "$name",
+                        image = R.drawable.test4,
+                        likes = 123
+                    )
+                )
+
                 dbConnect.getReference("nftsStore").child("$name").setValue(nftDataGen).addOnSuccessListener {
                     customToast(context, "Mint Uploaded")
                 }.addOnFailureListener{

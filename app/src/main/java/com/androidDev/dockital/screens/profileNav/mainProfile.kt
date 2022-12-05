@@ -1,7 +1,10 @@
 package com.androidDev.dockital.screens.profileNav
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,12 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.MainActivity
@@ -165,13 +170,39 @@ fun MainProfile(context : Context , navController: NavController, dbConnect: Fir
 
                 }
             }
+
+            val ctx = LocalContext.current
+            val activity = (LocalContext.current as? Activity)
+            val context = LocalContext.current
+            var intent = context.packageManager
+                .getLaunchIntentForPackage("io.metamask")
+            var packageName = "org.walletconnect.samples";
+            // val inten = context.packageManager.getLaunchIntentForPackage("com.application.zomato")
+            if (intent == null) {
+                intent = try {
+                    // if play store installed, open play store, else open browser
+                    Intent(Intent.ACTION_VIEW, Uri.parse("android-app://$packageName"))
+                } catch (e: java.lang.Exception) {
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    )
+                }
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(enabled = true) {
-                        Toast
-                            .makeText(context, "Account", Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast
+//                            .makeText(context, "Account", Toast.LENGTH_SHORT)
+//                            .show()
+                        /// MetaMask
+                        if (intent != null) {
+                            startActivity(context, intent, null)
+                        }
+                        else{
+                            Toast.makeText(context, "Fail", Toast.LENGTH_LONG).show()
+                        }
                     }
                     .padding(all = 16.dp),
                 verticalAlignment = Alignment.CenterVertically

@@ -42,6 +42,9 @@ import com.androidDev.dockital.navigations.NavigationItem
 import com.androidDev.dockital.nftMinter
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import java.security.MessageDigest
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 @Preview(showBackground = true)

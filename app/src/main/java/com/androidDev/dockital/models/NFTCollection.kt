@@ -8,7 +8,7 @@ data class NFTCollection(
     var likes: Int,
 )
 
-var collections = listOf<NFTCollection>(
+var collections = mutableListOf<NFTCollection>(
     NFTCollection("3D Art", R.drawable.card_3d, 123),
     NFTCollection("Abstract ART", R.drawable.card_abstract, 200),
     NFTCollection("Portrait Art", R.drawable.card_portrait, 242),

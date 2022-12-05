@@ -2,6 +2,7 @@ package com.androidDev.dockital.components
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -15,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.models.categories
+import com.androidDev.dockital.navigations.NavigationItem
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -22,7 +24,9 @@ import com.google.firebase.storage.FirebaseStorage
 @Composable
 fun CategoryList(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
     LazyRow(
-        modifier = Modifier.padding(vertical = 30.dp),
+        modifier = Modifier.padding(vertical = 30.dp).clickable {
+            navController.navigate(NavigationItem.Stats.route)
+        },
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         items(categories) { category ->

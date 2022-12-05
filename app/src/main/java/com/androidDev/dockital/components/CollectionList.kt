@@ -15,29 +15,44 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.models.collections
+import com.androidDev.dockital.models.nfts
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 
 @Composable
 fun CollectionList(context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
-    LazyRow(
-        modifier = Modifier.padding(bottom = 30.dp, top = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        items(collections) { collection ->
-            CollectionCard(
-                title = collection.title,
-                image = painterResource(id = collection.image),
-                likes = collection.likes,
-                context = context,
-                navController = navController,
-                dbConnect = dbConnect,
-                localStorageRef = localStorageRef,
-                dbStorageConnect = dbStorageConnect
-            )
+//    var nftStored = File(context.cacheDir, "/cachedImages")
+//    if(nftStored.listFiles() == null){
+//        nftStored.mkdir()
+//    }
+//    else if (nftStored.length() == 0L){
+//        dbConnect.getReference("nftList").get().addOnSuccessListener {
+//                fileName->
+//            var nftNames = fileName.value as ArrayList<String>
+//            println(nftNames)
+//        }
+////    }
+////    else{
+        LazyRow(
+            modifier = Modifier.padding(bottom = 30.dp, top = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(collections) { collection ->
+                CollectionCard(
+                    title = collection.title,
+                    image = painterResource(id = collection.image),
+                    likes = collection.likes,
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
+            }
         }
-    }
+//    }
 }
 
 @Preview

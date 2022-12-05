@@ -13,7 +13,7 @@ data class Ranking(
     val id: UUID = UUID.randomUUID()
 )
 
-var rankings = listOf<Ranking>(
+var rankings = mutableListOf<Ranking>(
     Ranking("Azumi", R.drawable.ranking01, "Ujjwal", "Dhruv", 3.99, 200055.02),
     Ranking("Hape prime", R.drawable.ranking02, "Ujjwal", "Dhruv", 33.79, 180055.45),
     Ranking("Cryoto", R.drawable.ranking03, "Ujjwal", "Dhruv", -6.56, 90055.62),

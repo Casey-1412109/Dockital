@@ -9,4 +9,5 @@
     <string name="metaMaskId"></string>
     <string name="phoneNumber"></string>
     <string name="emailId"></string>
+    <string name="upiId"></string>
 </resources>

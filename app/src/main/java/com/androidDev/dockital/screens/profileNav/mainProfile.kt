@@ -52,7 +52,8 @@ fun MainProfilePreview(){
 @Composable
 fun MainProfile(context : Context , navController: NavController, dbConnect: FirebaseDatabase,  localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage){
     var configurationDetails = LocalConfiguration.current
-    if(localStorageRef.all.isEmpty()){
+    val profileData = localStorageRef.all
+    if(profileData.isEmpty()){
         localStorageRef.edit().clear().commit()
         navController.navigate(NavigationItem.Login.route)
     }
@@ -63,6 +64,9 @@ fun MainProfile(context : Context , navController: NavController, dbConnect: Fir
                 .background(Color(32, 15, 52)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val profileName = localStorageRef.getString(R.string.name.toString(), "Name Not Found")
+            val profileEmail = localStorageRef.getString(R.string.userName.toString(), "Email Id Not Found")
+            val upiId = localStorageRef.getString(R.string.upiId.toString(), "UPI Id Not Found")
             TopAppBar(
                 title = {
                     Text(
@@ -110,22 +114,34 @@ fun MainProfile(context : Context , navController: NavController, dbConnect: Fir
                             .padding(start = 16.dp)
                     ) {
                         Text(
-                            text = "",
+                            text = "$profileName",
                             style = TextStyle(
                                 fontSize = 22.sp,
                             ),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            color = Color.Gray
+                            color = Color.White
                         )
 
                         Spacer(modifier = Modifier.height(2.dp))
 
                         Text(
-                            text = "email123@email.com",
+                            text = "$profileEmail",
                             style = TextStyle(
                                 fontSize = 14.sp,
-                                color = Color.Gray,
+                                color = Color.White,
+                                letterSpacing = (0.8).sp
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+
+                        Text(
+                            text = "$upiId",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                color = Color.White,
                                 letterSpacing = (0.8).sp
                             ),
                             maxLines = 1,

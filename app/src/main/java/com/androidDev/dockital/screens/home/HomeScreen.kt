@@ -82,7 +82,13 @@ fun HomeScreen(context : Context, navController: NavController, dbConnect: Fireb
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold
             )
-            CategoryList()
+            CategoryList(
+                context = context,
+                navController = navController,
+                dbConnect = dbConnect,
+                localStorageRef = localStorageRef,
+                dbStorageConnect = dbStorageConnect
+            )
 
             Text(
                 "Best sellers",
@@ -91,7 +97,13 @@ fun HomeScreen(context : Context, navController: NavController, dbConnect: Fireb
                 fontWeight = FontWeight.SemiBold
             )
 
-            CollectionList()
+            CollectionList(
+                context = context,
+                navController = navController,
+                dbConnect = dbConnect,
+                localStorageRef = localStorageRef,
+                dbStorageConnect = dbStorageConnect
+            )
 
             Text(
                 "Latest",

@@ -83,7 +83,14 @@ fun StatsScreen(context : Context, navController: NavController, dbConnect: Fire
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.padding(16.dp, 20.dp)
             ) {
-                RankingTable(rankings, navControllerTable = navController)
+                RankingTable(
+                    rankings,
+                    context = context,
+                    navController = navController,
+                    dbConnect = dbConnect,
+                    localStorageRef = localStorageRef,
+                    dbStorageConnect = dbStorageConnect
+                )
             }
         }
     }

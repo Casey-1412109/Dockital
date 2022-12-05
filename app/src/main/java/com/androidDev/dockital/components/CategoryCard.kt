@@ -1,5 +1,7 @@
 package com.androidDev.dockital.components
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -18,11 +20,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.androidDev.dockital.MainActivity
 import com.androidDev.dockital.R
 import com.androidDev.dockital.ui.theme.NFTMarketplaceTheme
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 
 @Composable
-fun CategoryCardScreen(title: String, image: Painter) {
+fun CategoryCardScreen(title: String, image: Painter, context : Context, navController: NavController, dbConnect: FirebaseDatabase, localStorageRef: SharedPreferences, dbStorageConnect: FirebaseStorage) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(27.dp))
@@ -60,15 +67,39 @@ fun PreviewCategoryCard() {
         Column() {
             CategoryCardScreen(
                 title = "Music",
-                image = painterResource(id = R.drawable.card_music)
+                image = painterResource(id = R.drawable.card_music),
+                context = MainActivity().context,
+                navController = rememberNavController(),
+                dbConnect = FirebaseDatabase.getInstance(),
+                localStorageRef = MainActivity().getSharedPreferences(
+                    " ",
+                    Context.MODE_PRIVATE
+                ),
+                dbStorageConnect = FirebaseStorage.getInstance()
             )
             CategoryCardScreen(
                 title = "Art",
-                image = painterResource(id = R.drawable.card_art)
+                image = painterResource(id = R.drawable.card_art),
+                context = MainActivity().context,
+                navController = rememberNavController(),
+                dbConnect = FirebaseDatabase.getInstance(),
+                localStorageRef = MainActivity().getSharedPreferences(
+                    " ",
+                    Context.MODE_PRIVATE
+                ),
+                dbStorageConnect = FirebaseStorage.getInstance()
             )
             CategoryCardScreen(
                 title = "Wave",
-                image = painterResource(id = R.drawable.card_wave)
+                image = painterResource(id = R.drawable.card_wave),
+                context = MainActivity().context,
+                navController = rememberNavController(),
+                dbConnect = FirebaseDatabase.getInstance(),
+                localStorageRef = MainActivity().getSharedPreferences(
+                    " ",
+                    Context.MODE_PRIVATE
+                ),
+                dbStorageConnect = FirebaseStorage.getInstance()
             )
         }
     }

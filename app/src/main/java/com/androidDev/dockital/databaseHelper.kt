@@ -24,12 +24,14 @@ fun userStoreDataGen(
     name: String,
     emailId: String ,
     phoneNumber: String,
-    passWord: String
+    passWord: String,
+    upiId: String
 ): HashMap<String, String> {
     return hashMapOf(
         "emailId" to emailId,
         "metaMaskHash" to "tempo",
         "name" to name,
+        "upiId" to upiId,
         "passWord" to passWord,
         "phoneNumber" to phoneNumber
     )
@@ -88,6 +90,7 @@ fun logInChecker(
                                     this.putString(R.string.metaMaskId.toString(),  userDataFetched["metaMaskHash"].toString())
                                     this.putString(R.string.phoneNumber.toString(),  userDataFetched["phoneNumber"].toString())
                                     this.putString(R.string.emailId.toString(),  userDataFetched["email"].toString())
+                                    this.putString(R.string.upiId.toString(),  userDataFetched["upiId"].toString())
                                     apply()
                                 }
                                 navController.popBackStack()
@@ -129,6 +132,7 @@ fun signInChecker(
     emailId: String,
     phoneNumber: String,
     passWord: String,
+    upiId: String,
     navController : NavController,
     localStorageRef: SharedPreferences
 ){
@@ -149,7 +153,8 @@ fun signInChecker(
             name = name,
             emailId = emailId,
             phoneNumber = phoneNumber,
-            passWord = passWord
+            passWord = passWord,
+            upiId = upiId
         )
         dbConnect.getReference("/userStore").child("$userName").setValue(courier).addOnSuccessListener {
             customToast(context = context, "Signed In Successfully")
@@ -172,7 +177,7 @@ fun signInChecker(
 }
 
 fun nftOwnerUpdater(){
-
+    //Transferring OwnerShip
 }
 fun nftMinter(
     context: Context,
